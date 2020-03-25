@@ -21,7 +21,7 @@ export default class LearnerHome extends Component {
                 <ScrollView ><Text>123</Text>
                     <Text>123</Text>
                     <Text>123</Text>
-                    <Text>123</Text>
+                    {/* <Text>123</Text> */}
                     <Text>123</Text></ScrollView>
             </>
         )
