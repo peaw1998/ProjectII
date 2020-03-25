@@ -111,7 +111,6 @@ export default class TeacherDragAndDropEdit extends Component {
     return (
       <>
         <View style={styles.main}>
-          <Text>{JSON.stringify(this.state.temp)}</Text>
           <Text style={styles.font}>คำถาม</Text>
 
           <Item style={styles.Input}>
