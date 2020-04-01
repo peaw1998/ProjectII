@@ -18,7 +18,7 @@ export default class SubjectTeacher extends Component {
         }
     }
     componentDidMount = async () => {
-        console.log('23')
+
         this.getCourse()
     }
 
