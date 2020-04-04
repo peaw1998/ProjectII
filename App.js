@@ -26,6 +26,9 @@ import LearnerSubject from './scr/Learner/LearnerSubject';
 import LearnerChapter from './scr/Learner/LearnerChapter';
 import LearnerExercise from './scr/Learner/LearnerExercise';
 
+import LoginScreen from './scr/Login/LoginScreen';
+import TeacherNoti from './scr/Teacher/TeacherNoti';
+
 const uiTheme = {
   palette: {
     primaryColor: COLOR.blue500,
@@ -40,7 +43,7 @@ const uiTheme = {
 const MainNavigator = createStackNavigator(
   {
     วิชาทั้งหมด: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -53,7 +56,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     เพิ่มวิชา: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -66,7 +69,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     เลือกแก้ไข: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -79,7 +82,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     บทเรียน: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -92,7 +95,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     แก้ไขบทเรียน: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -105,7 +108,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     เพิ่มบทเรียน: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -118,7 +121,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     แบบฝึกหัด: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -129,7 +132,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     แก้ไขแบบฝึกหัด: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -142,7 +145,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     เพิ่มแบบฝึกหัดเติมคำตอบ: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -155,7 +158,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     เพิ่มแบบฝึกหัดแบบหลายตัวเลือก: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -168,7 +171,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     เพิ่มแบบฝึกหัดแบบลากและวาง: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -181,7 +184,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     แก้ไขคำถาม: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -194,7 +197,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     แก้ไขคำถาม2: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -207,7 +210,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     แก้ไขคำถาม3: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -219,8 +222,21 @@ const MainNavigator = createStackNavigator(
         );
       },
     },
+    ประกาศทั้งหมด: {
+      screen: (props) => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <Container>
+              <ScrollView>
+                <TeacherNoti {...props} />
+              </ScrollView>
+            </Container>
+          </ThemeContext.Provider>
+        );
+      },
+    },
     Home: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -233,7 +249,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     Courses: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -246,7 +262,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     Chapter: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -259,7 +275,7 @@ const MainNavigator = createStackNavigator(
       },
     },
     Exercise: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -271,8 +287,21 @@ const MainNavigator = createStackNavigator(
         );
       },
     },
+    Login: {
+      screen: (props) => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <Container>
+              <ScrollView>
+                <LoginScreen {...props} />
+              </ScrollView>
+            </Container>
+          </ThemeContext.Provider>
+        );
+      },
+    },
     Test123: {
-      screen: props => {
+      screen: (props) => {
         return (
           <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
@@ -286,7 +315,7 @@ const MainNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'วิชาทั้งหมด',
 
     defaultNavigationOptions: {
       headerStyle: {

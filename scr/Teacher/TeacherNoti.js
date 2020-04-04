@@ -1,41 +1,24 @@
 import React, {Component} from 'react';
-import {
-  Navigator,
-  NativeModules,
-  Text,
-  StyleSheet,
-  View,
-  ScrollView,
-} from 'react-native';
-import {
-  COLOR,
-  ThemeContext,
-  getTheme,
-  Toolbar,
-  Card,
-  ListItem,
-} from 'react-native-material-ui';
-import Container from '../Container';
-import {Button, Spinner} from 'native-base';
+import {View, Text, Button, Input, Item, Spinner} from 'native-base';
+import {StyleSheet, Image} from 'react-native';
 import axios from 'axios';
 import {NavigationEvents} from 'react-navigation';
 
-export default class Main extends Component {
+export default class TeacherNoti extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      subject: [],
+      Noti: [],
       isLoading: true,
     };
   }
-
   componentDidMount = async () => {
-    this.getCourse();
+    this.getNoti();
   };
 
-  getCourse = async () => {
+  getNoti = async () => {
     await axios
-      .get('https://fast-ridge-57035.herokuapp.com/api/subjects', {
+      .get('https://fast-ridge-57035.herokuapp.com/api/notifications', {
         headers: {
           Authorization:
             'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.InBpbXdpcGEi.Fr9-EvO3sQMjy19gYCMOTS3KzhoxPovPyDavL2R9qbI',
@@ -43,8 +26,9 @@ export default class Main extends Component {
       })
       .then(async (res) => {
         await this.setState({
-          subject: res.data.users,
+          Noti: res.data,
         });
+        console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -63,7 +47,7 @@ export default class Main extends Component {
           {this.renderSubject()}
           <NavigationEvents
             onDidFocus={() => {
-              this.getCourse();
+              this.getNoti();
             }}
           />
         </View>
@@ -76,40 +60,34 @@ export default class Main extends Component {
       );
     }
   }
-  renderSubject = () => {
+
+  renderSubject() {
     return (
-      <View>
-        <Text style={styles.font2}>ประกาศ</Text>
-        <View style={styles.rowContainer}>
-          <View style={styles.button}>
-            <Button
-              raised
-              primary
-              text="Primary"
-              style={styles.button}
-              onPress={() => {
-                this.props.navigation.navigate('ประกาศทั้งหมด');
-              }}>
-              <Text style={styles.font}>Announcement</Text>
+      <View
+      // style={styles.main}
+      >
+        {/* <View style={styles.rowContainer}>
+          <View>
+            <Button raised primary text="Primary" style={styles.button}>
+              <Text style={styles.font}>123</Text>
             </Button>
           </View>
-        </View>
-
-        <Text style={styles.font2}>วิชาทั้งหมด</Text>
-        {this.state.subject.map((item) => (
+        </View> */}
+        {this.state.Noti.map((item) => (
           <View style={styles.rowContainer}>
-            <View style={styles.button}>
+            <View>
               <Button
                 raised
                 primary
                 text="Primary"
                 style={styles.button}
-                onPress={() => {
-                  this.props.navigation.navigate('เลือกแก้ไข', {
-                    _id: item._id,
-                  });
-                }}>
-                <Text style={styles.font}>{item.subjectName}</Text>
+                // onPress={() => {
+                //     this.props.navigation.navigate('แก้ไขบทเรียน', {
+                //         _id: item._id
+                //     })
+                // }}
+              >
+                <Text style={styles.font}>{item.notificationName}</Text>
               </Button>
             </View>
           </View>
@@ -121,16 +99,20 @@ export default class Main extends Component {
               primary
               text="Primary"
               style={styles.button2}
-              onPress={() => {
-                this.props.navigation.navigate('เพิ่มวิชา');
-              }}>
+              // onPress={() => {
+              //     this.props.navigation.navigate('เพิ่มบทเรียน', {
+              //         _id: this.props.navigation.getParam('_id', 'test')
+              //     })
+              // }}
+            >
+              {/* <Text style={styles.font}>เพิ่มบทเรียน</Text> */}
               <Text style={{fontSize: 50}}>+</Text>
             </Button>
           </View>
         </View>
       </View>
     );
-  };
+  }
 }
 
 const styles = StyleSheet.create({
@@ -139,19 +121,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  list: {
-    marginHorizontal: 50,
-    justifyContent: 'center',
+  main: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#e0e0e0',
   },
-  buttonDiv: {
-    marginHorizontal: 8,
+  Input: {
+    justifyContent: 'center',
+    width: 350,
+    height: 50,
+    backgroundColor: '#FFFFFF',
+    flexDirection: 'column',
+    marginTop: 10,
+    borderRadius: 10,
   },
   button: {
     justifyContent: 'center',
     width: 350,
-    height: 100,
+    height: 80,
     borderRadius: 20,
     flexDirection: 'column',
+    marginTop: 10,
     backgroundColor: '#005b9f',
   },
   button2: {
@@ -164,14 +155,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4fc3f7',
   },
   font: {
-    fontSize: 30,
-    fontFamily: 'Kanit-Bold',
-    color: 'white',
-  },
-  font2: {
-    padding: 20,
-    fontSize: 30,
-    fontFamily: 'Kanit-Bold',
-    color: '#435056',
+    fontSize: 20,
+    fontFamily: 'Kanit-Thin',
   },
 });

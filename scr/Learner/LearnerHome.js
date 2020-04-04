@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  ImageBackground,
 } from 'react-native';
 import {
   COLOR,
@@ -83,8 +84,16 @@ export default class LearnerHome extends Component {
   renderSubject = () => {
     return (
       <>
-        <View style={{backgroundColor: '#ffc508', height: 250}}>
-          <Text>123</Text>
+        <View
+          style={{
+            height: 300,
+            backgroundColor: '#fff',
+          }}>
+          <ImageBackground
+            source={require('../../images/bg-noti2.png')}
+            style={styles.image}>
+            {/* <Text style={styles.font2}>ประกาศ</Text> */}
+          </ImageBackground>
         </View>
 
         <Text style={styles.font2}>คอร์สเรียนทั้งหมด</Text>
@@ -146,6 +155,12 @@ const styles = StyleSheet.create({
   //   flexDirection: 'row',
   //   justifyContent: 'center',
   // },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    height: 250,
+  },
   test: {
     flex: 1,
     flexDirection: 'row',
