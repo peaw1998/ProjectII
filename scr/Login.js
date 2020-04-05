@@ -8,7 +8,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ede7f6',
+    backgroundColor: '#004163',
   },
 });
 
