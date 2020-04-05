@@ -94,6 +94,7 @@ export default class LoginScreen extends Component {
                 placeholder="Username"
                 placeholderTextColor="#fff"
                 value={this.state.username}
+                autoCapitalize="none"
                 onChangeText={(e) => {
                   this.setState({
                     username: e,
@@ -108,6 +109,7 @@ export default class LoginScreen extends Component {
                 placeholderTextColor="#fff"
                 secureTextEntry={true}
                 value={this.state.password}
+                autoCapitalize="none"
                 onChangeText={(e) => {
                   this.setState({
                     password: e,
@@ -131,6 +133,7 @@ export default class LoginScreen extends Component {
                       )
                       .then(async (res) => {
                         await AsyncStorage.setItem('token', res.data);
+                        this.props.navigation.navigate('Home');
                       })
                       .catch((error) => {
                         Alert.alert('', 'wrong username or password');
@@ -146,6 +149,7 @@ export default class LoginScreen extends Component {
                       )
                       .then(async (res) => {
                         await AsyncStorage.setItem('token', res.data);
+                        this.props.navigation.navigate('วิชาทั้งหมด');
                       })
                       .catch((error) => {
                         Alert.alert('', 'wrong username or password');
@@ -156,10 +160,28 @@ export default class LoginScreen extends Component {
               </Button>
             </View>
             <View style={styles.type}>
-              <Button rounded style={styles.button3}>
+              <Button
+                rounded
+                style={styles.button3}
+                onPress={() => {
+                  if (this.state.mode === 'learner') {
+                    this.props.navigation.navigate('Register');
+                  } else if (this.state.mode === 'teacher') {
+                    this.props.navigation.navigate('สมัครสมาชิก');
+                  }
+                }}>
                 <Text>Sign up</Text>
               </Button>
-              <Button rounded style={styles.button2}>
+              <Button
+                rounded
+                style={styles.button2}
+                onPress={() => {
+                  if (this.state.mode === 'learner') {
+                    this.props.navigation.navigate('Password');
+                  } else if (this.state.mode === 'teacher') {
+                    this.props.navigation.navigate('ลืมรหัสผ่าน');
+                  }
+                }}>
                 <Text>Forget Password</Text>
               </Button>
             </View>

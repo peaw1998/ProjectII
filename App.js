@@ -36,6 +36,7 @@ import LearnerNotiShow from './scr/Learner/LearnerNotiShow';
 import RegisTeacher from './scr/Login/RegisTeacher';
 import RegisLearner from './scr/Login/RegisLearner';
 import ForgetTeacher from './scr/Login/FogetTeacher';
+import ForgetLearner from './scr/Login/ForgetLearner';
 
 const uiTheme = {
   palette: {
@@ -386,6 +387,35 @@ const MainNavigator = createStackNavigator(
         );
       },
     },
+    Password: {
+      screen: (props) => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <LoginS>
+              <ScrollView>
+                <ForgetLearner {...props} />
+              </ScrollView>
+            </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
+    },
+    Login: {
+      screen: (props) => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <LoginS>
+              <ScrollView>
+                <LoginScreen {...props} />
+              </ScrollView>
+            </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
     Test123: {
       screen: (props) => {
         return (
@@ -401,7 +431,7 @@ const MainNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'ลืมรหัสผ่าน',
+    initialRouteName: 'Login',
 
     defaultNavigationOptions: {
       headerStyle: {
