@@ -14,34 +14,28 @@ import {
   Body,
   Right,
 } from 'native-base';
-import {StyleSheet, Image, TextInput} from 'react-native';
-import Modal from 'react-native-modal';
+import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import axios from 'axios';
-// import HTML from 'react-native-render-html';
+import {NavigationEvents} from 'react-navigation';
+import AnimationButton from '../../Animation';
 
-export default class LearnerChapter extends Component {
+export default class LearnerNotiShow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chapter_name: '',
+      notificationName: '[]',
       content: '',
       isLoading: true,
-      isModalVisible: false,
-      isPress: false,
-      isPress2: false,
     };
   }
-  toggleModal = () => {
-    this.setState({isModalVisible: !this.state.isModalVisible});
-  };
   componentDidMount = async () => {
-    this.GetChapter();
+    this.getNoti();
   };
 
-  GetChapter = async () => {
+  getNoti = async () => {
     await axios
       .get(
-        'https://fast-ridge-57035.herokuapp.com/api/chapter/' +
+        'https://fast-ridge-57035.herokuapp.com/api/notification/' +
           this.props.navigation.getParam('_id', 'test'),
         {
           headers: {
@@ -52,9 +46,10 @@ export default class LearnerChapter extends Component {
       )
       .then(async (res) => {
         await this.setState({
-          chapter_name: res.data.chapterName,
+          notificationName: res.data.notificationName,
           content: res.data.content,
         });
+        console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -68,7 +63,16 @@ export default class LearnerChapter extends Component {
 
   render() {
     if (this.state.isLoading === false) {
-      return <View>{this.renderSubject()}</View>;
+      return (
+        <View>
+          {this.renderSubject()}
+          <NavigationEvents
+            onDidFocus={() => {
+              this.getNoti();
+            }}
+          />
+        </View>
+      );
     } else {
       return (
         <View style={styles.container}>
@@ -80,25 +84,24 @@ export default class LearnerChapter extends Component {
 
   renderSubject() {
     return (
-      <>
-        <View>
-          <Card style={{flex: 0}}>
-            <CardItem>
-              <Left>
-                <Thumbnail source={require('../../images/2.png')} />
-                <Body>
-                  <Text style={styles.font2}>{this.state.chapter_name}</Text>
-                </Body>
-              </Left>
-            </CardItem>
-            <CardItem>
+      <View>
+        <Card style={{flex: 0}}>
+          <CardItem>
+            <Left>
+              <Thumbnail source={require('../../images/5.png')} />
               <Body>
-                <Text style={styles.font3}>{this.state.content}</Text>
+                <Text style={styles.font2}>{this.state.notificationName}</Text>
+                <Text note>April 15, 2016</Text>
               </Body>
-            </CardItem>
-          </Card>
-        </View>
-      </>
+            </Left>
+          </CardItem>
+          <CardItem>
+            <Body>
+              <Text style={styles.font3}>{this.state.content}</Text>
+            </Body>
+          </CardItem>
+        </Card>
+      </View>
     );
   }
 }
@@ -108,16 +111,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#e0e0e0',
-  },
-  Input: {
-    justifyContent: 'center',
-    width: 350,
-    height: 50,
-    backgroundColor: '#FFFFFF',
-    flexDirection: 'column',
-    marginTop: 10,
-    borderRadius: 10,
+    // backgroundColor: '#e0e0e0'
   },
 
   font: {
@@ -126,7 +120,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   font2: {
-    fontSize: 25,
+    fontSize: 22,
     fontFamily: 'Kanit-Regular',
     color: '#000',
   },

@@ -46,12 +46,12 @@ export default class LearnerHome extends Component {
             'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.InBpbXdpcGEi.Fr9-EvO3sQMjy19gYCMOTS3KzhoxPovPyDavL2R9qbI',
         },
       })
-      .then(async res => {
+      .then(async (res) => {
         await this.setState({
           subject: res.data.users,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       })
       .finally(async () => {
@@ -92,13 +92,21 @@ export default class LearnerHome extends Component {
           <ImageBackground
             source={require('../../images/bg-noti2.png')}
             style={styles.image}>
-            {/* <Text style={styles.font2}>ประกาศ</Text> */}
+            <Text style={styles.font3}>ประกาศ</Text>
+            <Button
+              rounded
+              info
+              onPress={() => {
+                this.props.navigation.navigate('Announcements');
+              }}>
+              <Text style={styles.font2}>ดูประกาศทั้งหมด</Text>
+            </Button>
           </ImageBackground>
         </View>
 
         <Text style={styles.font2}>คอร์สเรียนทั้งหมด</Text>
         {/* <View style={{marginLeft: 50}}> */}
-        {this.state.subject.map(item => (
+        {this.state.subject.map((item) => (
           <View style={styles.test2}>
             <AnimationButton
               // animationIn="fadeIn"
@@ -158,8 +166,10 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     height: 250,
+    padding: 5,
   },
   test: {
     flex: 1,
@@ -209,6 +219,12 @@ const styles = StyleSheet.create({
   },
   font2: {
     fontSize: 25,
+    fontFamily: 'Kanit-Bold',
+    color: '#435056',
+    padding: 10,
+  },
+  font3: {
+    fontSize: 45,
     fontFamily: 'Kanit-Bold',
     color: '#435056',
     marginLeft: 15,

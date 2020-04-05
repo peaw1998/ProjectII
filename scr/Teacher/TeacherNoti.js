@@ -81,12 +81,11 @@ export default class TeacherNoti extends Component {
                 primary
                 text="Primary"
                 style={styles.button}
-                // onPress={() => {
-                //     this.props.navigation.navigate('แก้ไขบทเรียน', {
-                //         _id: item._id
-                //     })
-                // }}
-              >
+                onPress={() => {
+                  this.props.navigation.navigate('แก้ไขประกาศ', {
+                    _id: item._id,
+                  });
+                }}>
                 <Text style={styles.font}>{item.notificationName}</Text>
               </Button>
             </View>
@@ -99,12 +98,11 @@ export default class TeacherNoti extends Component {
               primary
               text="Primary"
               style={styles.button2}
-              // onPress={() => {
-              //     this.props.navigation.navigate('เพิ่มบทเรียน', {
-              //         _id: this.props.navigation.getParam('_id', 'test')
-              //     })
-              // }}
-            >
+              onPress={() => {
+                this.props.navigation.navigate('เพิ่มประกาศ', {
+                  _id: this.props.navigation.getParam('_id', 'test'),
+                });
+              }}>
               {/* <Text style={styles.font}>เพิ่มบทเรียน</Text> */}
               <Text style={{fontSize: 50}}>+</Text>
             </Button>
