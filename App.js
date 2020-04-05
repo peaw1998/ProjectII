@@ -63,6 +63,9 @@ const MainNavigator = createStackNavigator(
           </ThemeContext.Provider>
         );
       },
+      navigationOptions: {
+        headerShown: false,
+      },
     },
     เพิ่มวิชา: {
       screen: (props) => {
@@ -281,6 +284,9 @@ const MainNavigator = createStackNavigator(
             </Container>
           </ThemeContext.Provider>
         );
+      },
+      navigationOptions: {
+        headerShown: false,
       },
     },
     Courses: {
