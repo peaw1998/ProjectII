@@ -401,7 +401,7 @@ const MainNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'ลืมรหัสผ่าน',
+    initialRouteName: 'Home',
 
     defaultNavigationOptions: {
       headerStyle: {
