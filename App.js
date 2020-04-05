@@ -33,6 +33,9 @@ import TeacherNotiEdit from './scr/Teacher/TeacherNotiEdit';
 import TeacherAddNoti from './scr/Teacher/TeacherAddNoti';
 import LearnerNoti from './scr/Learner/LearnerNoti';
 import LearnerNotiShow from './scr/Learner/LearnerNotiShow';
+import RegisTeacher from './scr/Login/RegisTeacher';
+import RegisLearner from './scr/Login/RegisLearner';
+import ForgetTeacher from './scr/Login/FogetTeacher';
 
 const uiTheme = {
   palette: {
@@ -318,19 +321,6 @@ const MainNavigator = createStackNavigator(
         );
       },
     },
-    Login: {
-      screen: (props) => {
-        return (
-          <ThemeContext.Provider value={getTheme(uiTheme)}>
-            <LoginS>
-              <ScrollView>
-                <LoginScreen {...props} />
-              </ScrollView>
-            </LoginS>
-          </ThemeContext.Provider>
-        );
-      },
-    },
     Announcements: {
       screen: (props) => {
         return (
@@ -357,6 +347,45 @@ const MainNavigator = createStackNavigator(
         );
       },
     },
+    สมัครสมาชิก: {
+      screen: (props) => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <LoginS>
+              <ScrollView>
+                <RegisTeacher {...props} />
+              </ScrollView>
+            </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
+    },
+    Register: {
+      screen: (props) => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <LoginS>
+              <ScrollView>
+                <RegisLearner {...props} />
+              </ScrollView>
+            </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
+    },
+    ลืมรหัสผ่าน: {
+      screen: (props) => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <LoginS>
+              <ScrollView>
+                <ForgetTeacher {...props} />
+              </ScrollView>
+            </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
+    },
     Test123: {
       screen: (props) => {
         return (
@@ -372,7 +401,7 @@ const MainNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'ลืมรหัสผ่าน',
 
     defaultNavigationOptions: {
       headerStyle: {
