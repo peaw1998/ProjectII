@@ -20,7 +20,7 @@ export default class TeacherExercise extends Component {
             Pre: [],
             Post: []
         }
-        this.test()
+
     }
 
     test = async () => {
