@@ -210,6 +210,7 @@ export default class RegisLearner extends Component {
                   }}
                   title="Show modal">
                   <Text style={styles.font3}>ตกลง</Text>
+                  {/* test */}
                 </Button>
               </View>
             </View>
