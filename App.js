@@ -37,6 +37,8 @@ import RegisTeacher from './scr/Login/RegisTeacher';
 import RegisLearner from './scr/Login/RegisLearner';
 import ForgetTeacher from './scr/Login/FogetTeacher';
 import ForgetLearner from './scr/Login/ForgetLearner';
+import LearnerProfile from './scr/Learner/LearnerProfile';
+import LearnerResetPass from './scr/Learner/LearnerResetPass';
 
 const uiTheme = {
   palette: {
@@ -422,6 +424,32 @@ const MainNavigator = createStackNavigator(
         headerShown: false,
       },
     },
+    Profile: {
+      screen: (props) => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <LoginS>
+              <ScrollView>
+                <LearnerProfile {...props} />
+              </ScrollView>
+            </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
+    },
+    Reset: {
+      screen: (props) => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <LoginS>
+              <ScrollView>
+                <LearnerResetPass {...props} />
+              </ScrollView>
+            </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
+    },
     Test123: {
       screen: (props) => {
         return (
@@ -437,7 +465,7 @@ const MainNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'Home',
 
     defaultNavigationOptions: {
       headerStyle: {

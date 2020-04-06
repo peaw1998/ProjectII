@@ -105,14 +105,12 @@ export default class LearnerHome extends Component {
         </View>
 
         <Text style={styles.font2}>คอร์สเรียนทั้งหมด</Text>
-        {/* <View style={{marginLeft: 50}}> */}
+
         {this.state.subject.map((item) => (
           <View style={styles.test2}>
             <AnimationButton
-              // animationIn="fadeIn"
               animation="bounceIn"
               text="test"
-              // color="red"
               onPress={() => {
                 this.props.navigation.navigate('Courses', {
                   _id: item._id,
@@ -120,49 +118,38 @@ export default class LearnerHome extends Component {
               }}
               styles={styles}>
               <TouchableOpacity style={styles.test}>
-                {/* <Left> */}
                 <Image
                   source={require('../../images/2.png')}
-                  style={{width: 60, height: 60}}></Image>
-                {/* </Left> */}
-                {/* <Body>
-                  <Text style={styles.font}>{item.subjectName}</Text>
-                </Body> */}
-                {/* <Right> */}
+                  style={{width: 60, height: 60}}
+                />
                 <Text style={styles.font}>{item.subjectName}</Text>
-                {/* </Right> */}
               </TouchableOpacity>
             </AnimationButton>
-
-            {/* <AnimationButton
-                // animationIn="fadeIn"
-                animation="rubberBand"
-                text="test"
-                color="red"
-                onPress={() => {
-                  this.props.navigation.navigate('Courses', {
-                    _id: item._id,
-                  });
-                }}
-                styles={styles}>
-                <Button text="Primary" style={styles.button}>
-                                <Text style={styles.font}>{item.subjectName}</Text>
-                </Button>
-              </AnimationButton> */}
           </View>
         ))}
-        {/* </View> */}
+        <View>
+          <View style={styles.test2}>
+            <AnimationButton
+              animation="bounceIn"
+              text="test"
+              onPress={() => {
+                this.props.navigation.navigate('Profile');
+              }}
+              styles={styles}>
+              <TouchableOpacity style={styles.profile}>
+                <Body>
+                  <Text style={styles.font}>My Profile</Text>
+                </Body>
+              </TouchableOpacity>
+            </AnimationButton>
+          </View>
+        </View>
       </>
     );
   };
 }
 
 const styles = StyleSheet.create({
-  // rowContainer: {
-  //   marginTop: 8,
-  //   flexDirection: 'row',
-  //   justifyContent: 'center',
-  // },
   image: {
     flex: 1,
     resizeMode: 'cover',
@@ -176,10 +163,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // width: '90%',
     backgroundColor: '#217983',
     borderRadius: 40,
     padding: 15,
+    margin: 5,
+  },
+  profile: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#1abc9c',
+    // borderRadius: 40,
+    padding: 15,
+    margin: 5,
   },
   test2: {
     flex: 1,
