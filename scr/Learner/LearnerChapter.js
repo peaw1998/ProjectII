@@ -14,10 +14,10 @@ import {
   Body,
   Right,
 } from 'native-base';
-import {StyleSheet, Image, TextInput} from 'react-native';
+import {StyleSheet, Image, TextInput, Dimensions} from 'react-native';
 import Modal from 'react-native-modal';
 import axios from 'axios';
-// import HTML from 'react-native-render-html';
+import HTML from 'react-native-render-html';
 
 export default class LearnerChapter extends Component {
   constructor(props) {
@@ -93,7 +93,14 @@ export default class LearnerChapter extends Component {
             </CardItem>
             <CardItem>
               <Body>
-                <Text style={styles.font3}>{this.state.content}</Text>
+                {/* <Text style={styles.font3}>{this.state.content}</Text>
+                 */}
+                <View style={{backgroundColor: '#'}}>
+                  <HTML
+                    html={this.state.content}
+                    imagesMaxWidth={Dimensions.get('window').width}
+                  />
+                </View>
               </Body>
             </CardItem>
           </Card>
