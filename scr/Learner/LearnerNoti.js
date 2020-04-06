@@ -18,6 +18,7 @@ import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import axios from 'axios';
 import {NavigationEvents} from 'react-navigation';
 import AnimationButton from '../../Animation';
+import moment from 'moment';
 
 export default class LearnerNoti extends Component {
   constructor(props) {
@@ -86,7 +87,9 @@ export default class LearnerNoti extends Component {
                 <Thumbnail source={require('../../images/5.png')} />
                 <Body>
                   <Text style={styles.font2}>{item.notificationName}</Text>
-                  <Text note>April 15, 2016</Text>
+                  <Text note>
+                    update {moment(item.updatedAt).format('DD/MM/YYYY')}
+                  </Text>
                 </Body>
               </Left>
             </CardItem>
