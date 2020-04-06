@@ -21,7 +21,8 @@ import {
 } from 'react-native';
 import {View} from 'react-native-animatable';
 import {TextInput} from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-community/async-storage';
+// import AsyncStorage from '@react-native-community/async-storage';
+import token from '../token';
 import axios from 'axios';
 
 export default class LoginScreen extends Component {
@@ -95,7 +96,7 @@ export default class LoginScreen extends Component {
                 placeholderTextColor="#fff"
                 value={this.state.username}
                 autoCapitalize="none"
-                onChangeText={(e) => {
+                onChangeText={e => {
                   this.setState({
                     username: e,
                   });
@@ -110,7 +111,7 @@ export default class LoginScreen extends Component {
                 secureTextEntry={true}
                 value={this.state.password}
                 autoCapitalize="none"
-                onChangeText={(e) => {
+                onChangeText={e => {
                   this.setState({
                     password: e,
                   });
@@ -131,11 +132,12 @@ export default class LoginScreen extends Component {
                           password: this.state.password,
                         },
                       )
-                      .then(async (res) => {
-                        await AsyncStorage.setItem('token', res.data);
+                      .then(async res => {
+                        // await AsyncStorage.setItem('token', res.data);
+                        token.setToken(res.data);
                         this.props.navigation.navigate('Home');
                       })
-                      .catch((error) => {
+                      .catch(error => {
                         Alert.alert('', 'wrong username or password');
                       });
                   } else if (this.state.mode === 'teacher') {
@@ -147,11 +149,12 @@ export default class LoginScreen extends Component {
                           password: this.state.password,
                         },
                       )
-                      .then(async (res) => {
-                        await AsyncStorage.setItem('token', res.data);
+                      .then(async res => {
+                        // await AsyncStorage.setItem('token', res.data);
+                        token.setToken(res.data);
                         this.props.navigation.navigate('วิชาทั้งหมด');
                       })
-                      .catch((error) => {
+                      .catch(error => {
                         Alert.alert('', 'wrong username or password');
                       });
                   }
