@@ -3,6 +3,7 @@ import {View, Text, Button, Input, Item, Spinner} from 'native-base';
 import {StyleSheet, Image, TextInput} from 'react-native';
 import Modal from 'react-native-modal';
 import axios from 'axios';
+import token from '../token';
 
 export default class TeacherSubjectEdit extends Component {
   constructor(props) {
@@ -30,8 +31,7 @@ export default class TeacherSubjectEdit extends Component {
           this.props.navigation.getParam('_id', 'test'),
         {
           headers: {
-            Authorization:
-              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.InBpbXdpcGEi.Fr9-EvO3sQMjy19gYCMOTS3KzhoxPovPyDavL2R9qbI',
+            Authorization: 'Bearer ' + token.getToken(),
           },
         },
       )
@@ -64,8 +64,7 @@ export default class TeacherSubjectEdit extends Component {
           },
           {
             headers: {
-              Authorization:
-                'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.InBpbXdpcGEi.Fr9-EvO3sQMjy19gYCMOTS3KzhoxPovPyDavL2R9qbI',
+              Authorization: 'Bearer ' + token.getToken(),
             },
           },
         )
@@ -89,8 +88,7 @@ export default class TeacherSubjectEdit extends Component {
             this.props.navigation.getParam('_id', 'test'),
           {
             headers: {
-              Authorization:
-                'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.InBpbXdpcGEi.Fr9-EvO3sQMjy19gYCMOTS3KzhoxPovPyDavL2R9qbI',
+              Authorization: 'Bearer ' + token.getToken(),
             },
           },
         )

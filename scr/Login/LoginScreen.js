@@ -96,7 +96,7 @@ export default class LoginScreen extends Component {
                 placeholderTextColor="#fff"
                 value={this.state.username}
                 autoCapitalize="none"
-                onChangeText={e => {
+                onChangeText={(e) => {
                   this.setState({
                     username: e,
                   });
@@ -111,7 +111,7 @@ export default class LoginScreen extends Component {
                 secureTextEntry={true}
                 value={this.state.password}
                 autoCapitalize="none"
-                onChangeText={e => {
+                onChangeText={(e) => {
                   this.setState({
                     password: e,
                   });
@@ -132,12 +132,13 @@ export default class LoginScreen extends Component {
                           password: this.state.password,
                         },
                       )
-                      .then(async res => {
+                      .then(async (res) => {
                         // await AsyncStorage.setItem('token', res.data);
                         token.setToken(res.data);
+                        this.setState({username: '', password: ''});
                         this.props.navigation.navigate('Home');
                       })
-                      .catch(error => {
+                      .catch((error) => {
                         Alert.alert('', 'wrong username or password');
                       });
                   } else if (this.state.mode === 'teacher') {
@@ -149,12 +150,13 @@ export default class LoginScreen extends Component {
                           password: this.state.password,
                         },
                       )
-                      .then(async res => {
+                      .then(async (res) => {
                         // await AsyncStorage.setItem('token', res.data);
                         token.setToken(res.data);
+                        this.setState({username: '', password: ''});
                         this.props.navigation.navigate('วิชาทั้งหมด');
                       })
-                      .catch(error => {
+                      .catch((error) => {
                         Alert.alert('', 'wrong username or password');
                       });
                   }

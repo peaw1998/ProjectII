@@ -6,6 +6,7 @@ import {
   StyleSheet,
   View,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import {
   COLOR,
@@ -16,9 +17,11 @@ import {
   ListItem,
 } from 'react-native-material-ui';
 import Container from '../Container';
-import {Button, Spinner} from 'native-base';
+import {Button, Spinner, Left, Right, Body} from 'native-base';
 import axios from 'axios';
 import {NavigationEvents} from 'react-navigation';
+import AnimationButton from '../../Animation';
+import token from '../token';
 
 export default class Main extends Component {
   constructor(props) {
@@ -37,8 +40,7 @@ export default class Main extends Component {
     await axios
       .get('https://fast-ridge-57035.herokuapp.com/api/subjects', {
         headers: {
-          Authorization:
-            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.InBpbXdpcGEi.Fr9-EvO3sQMjy19gYCMOTS3KzhoxPovPyDavL2R9qbI',
+          Authorization: 'Bearer ' + token.getToken(),
         },
       })
       .then(async (res) => {
@@ -128,6 +130,23 @@ export default class Main extends Component {
             </Button>
           </View>
         </View>
+        <View>
+          <View style={styles.test2}>
+            <AnimationButton
+              animation="bounceIn"
+              text="test"
+              onPress={() => {
+                this.props.navigation.navigate('ข้อมูล');
+              }}
+              styles={styles}>
+              <TouchableOpacity style={styles.profile}>
+                <Body>
+                  <Text style={styles.font}>My Profile</Text>
+                </Body>
+              </TouchableOpacity>
+            </AnimationButton>
+          </View>
+        </View>
       </View>
     );
   };
@@ -173,5 +192,21 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: 'Kanit-Bold',
     color: '#435056',
+  },
+  profile: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#1abc9c',
+    // borderRadius: 40,
+    padding: 15,
+    margin: 5,
+  },
+  test2: {
+    flex: 1,
+    flexDirection: 'column',
+    marginTop: 8,
+    // justifyContent: 'center',
   },
 });

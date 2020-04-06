@@ -23,6 +23,7 @@ import {Button, Spinner, Left, Right, Body} from 'native-base';
 import axios from 'axios';
 import {NavigationEvents} from 'react-navigation';
 import AnimationButton from '../../Animation';
+import token from '../token';
 
 export default class LearnerHome extends Component {
   constructor(props) {
@@ -42,8 +43,7 @@ export default class LearnerHome extends Component {
     await axios
       .get('https://fast-ridge-57035.herokuapp.com/api/subjects', {
         headers: {
-          Authorization:
-            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.InBpbXdpcGEi.Fr9-EvO3sQMjy19gYCMOTS3KzhoxPovPyDavL2R9qbI',
+          Authorization: 'Bearer ' + token.getToken(),
         },
       })
       .then(async (res) => {

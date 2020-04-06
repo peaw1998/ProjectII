@@ -22,7 +22,7 @@ import Modal from 'react-native-modal';
 import AnimationButton from '../../Animation';
 import token from '../token';
 
-export default class LearnerResetPass extends Component {
+export default class TeacherResetPass extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +44,7 @@ export default class LearnerResetPass extends Component {
   changePass = async () => {
     await axios
       .put(
-        'https://fast-ridge-57035.herokuapp.com/auth/learner/changepassword',
+        'https://fast-ridge-57035.herokuapp.com/auth/teacher/changepassword',
         {
           password: this.state.password,
         },
@@ -136,7 +136,6 @@ export default class LearnerResetPass extends Component {
                 console.log('success');
                 this.toggleModal();
               }
-              // this.props.navigation.navigate('Profile');
             }}
             styles={styles}>
             <TouchableOpacity style={styles.reset}>
@@ -146,6 +145,7 @@ export default class LearnerResetPass extends Component {
             </TouchableOpacity>
           </AnimationButton>
         </View>
+
         <View style={styles.center}>
           <Modal
             isVisible={this.state.isModalVisible}

@@ -21,7 +21,7 @@ import {NavigationEvents} from 'react-navigation';
 import AnimationButton from '../../Animation';
 import token from '../token';
 
-export default class LearnerProfile extends Component {
+export default class TeacherProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +36,7 @@ export default class LearnerProfile extends Component {
 
   getProfile = async () => {
     await axios
-      .get('https://fast-ridge-57035.herokuapp.com/auth/learner/profile', {
+      .get('https://fast-ridge-57035.herokuapp.com/auth/teacher/profile', {
         headers: {
           Authorization: 'Bearer ' + token.getToken(),
         },
@@ -115,7 +115,7 @@ export default class LearnerProfile extends Component {
             animation="bounceIn"
             text="test"
             onPress={() => {
-              this.props.navigation.navigate('Reset', {
+              this.props.navigation.navigate('ตั้งค่า', {
                 username: this.state.username,
               });
             }}

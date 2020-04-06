@@ -3,6 +3,7 @@ import {View, Text, Button, Input, Item, Spinner} from 'native-base';
 import {StyleSheet, Image} from 'react-native';
 import axios from 'axios';
 import {NavigationEvents} from 'react-navigation';
+import token from '../token';
 
 export default class TeacherSubject extends Component {
   constructor(props) {
@@ -24,8 +25,7 @@ export default class TeacherSubject extends Component {
           this.props.navigation.getParam('_id', 'test'),
         {
           headers: {
-            Authorization:
-              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.InBpbXdpcGEi.Fr9-EvO3sQMjy19gYCMOTS3KzhoxPovPyDavL2R9qbI',
+            Authorization: 'Bearer ' + token.getToken(),
           },
         },
       )

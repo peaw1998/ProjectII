@@ -5,6 +5,7 @@ import axios from 'axios';
 import {NavigationEvents} from 'react-navigation';
 import {TextInput} from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
+import token from '../token';
 
 export default class TeacherFill extends Component {
   constructor(props) {
@@ -49,15 +50,14 @@ export default class TeacherFill extends Component {
           },
           {
             headers: {
-              Authorization:
-                'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.InBpbXdpcGEi.Fr9-EvO3sQMjy19gYCMOTS3KzhoxPovPyDavL2R9qbI',
+              Authorization: 'Bearer ' + token.getToken(),
             },
           },
         )
-        .then(res => {
+        .then((res) => {
           console.log(res.data);
         })
-        .catch(res => {
+        .catch((res) => {
           console.log(res);
         });
 
@@ -88,10 +88,10 @@ export default class TeacherFill extends Component {
             },
           },
         )
-        .then(res => {
+        .then((res) => {
           console.log(res.data);
         })
-        .catch(res => {
+        .catch((res) => {
           console.log(res);
         });
 
@@ -106,7 +106,7 @@ export default class TeacherFill extends Component {
           <Text style={styles.font}>คำถาม</Text>
           <Item style={styles.Input}>
             <TextInput
-              onChangeText={e => {
+              onChangeText={(e) => {
                 this.setState({question: e});
               }}
               value={this.state.question}
@@ -115,7 +115,7 @@ export default class TeacherFill extends Component {
           <Text style={styles.font}>คำตอบที่ถูกต้องที่สุด</Text>
           <Item style={styles.Input}>
             <TextInput
-              onChangeText={e => {
+              onChangeText={(e) => {
                 this.setState({correctAnswer: e});
               }}
               value={this.state.correctAnswer}

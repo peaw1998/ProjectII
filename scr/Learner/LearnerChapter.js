@@ -18,6 +18,7 @@ import {StyleSheet, Image, TextInput, Dimensions} from 'react-native';
 import Modal from 'react-native-modal';
 import axios from 'axios';
 import HTML from 'react-native-render-html';
+import token from '../token';
 
 export default class LearnerChapter extends Component {
   constructor(props) {
@@ -45,8 +46,7 @@ export default class LearnerChapter extends Component {
           this.props.navigation.getParam('_id', 'test'),
         {
           headers: {
-            Authorization:
-              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.InBpbXdpcGEi.Fr9-EvO3sQMjy19gYCMOTS3KzhoxPovPyDavL2R9qbI',
+            Authorization: 'Bearer ' + token.getToken(),
           },
         },
       )

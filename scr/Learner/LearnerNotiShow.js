@@ -18,6 +18,8 @@ import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import axios from 'axios';
 import {NavigationEvents} from 'react-navigation';
 import AnimationButton from '../../Animation';
+import token from '../token';
+import moment from 'moment';
 
 export default class LearnerNotiShow extends Component {
   constructor(props) {
@@ -25,6 +27,7 @@ export default class LearnerNotiShow extends Component {
     this.state = {
       notificationName: '[]',
       content: '',
+      updatedAt: '',
       isLoading: true,
     };
   }
@@ -39,8 +42,7 @@ export default class LearnerNotiShow extends Component {
           this.props.navigation.getParam('_id', 'test'),
         {
           headers: {
-            Authorization:
-              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.InBpbXdpcGEi.Fr9-EvO3sQMjy19gYCMOTS3KzhoxPovPyDavL2R9qbI',
+            Authorization: 'Bearer ' + token.getToken(),
           },
         },
       )
@@ -48,6 +50,7 @@ export default class LearnerNotiShow extends Component {
         await this.setState({
           notificationName: res.data.notificationName,
           content: res.data.content,
+          updatedAt: res.data.updatedAt,
         });
         console.log(res.data);
       })
@@ -92,7 +95,7 @@ export default class LearnerNotiShow extends Component {
               <Body>
                 <Text style={styles.font2}>{this.state.notificationName}</Text>
                 <Text note>
-                  update {moment(item.updatedAt).format('DD/MM/YYYY')}
+                  update {moment(this.state.updatedAt).format('DD/MM/YYYY')}
                 </Text>
               </Body>
             </Left>

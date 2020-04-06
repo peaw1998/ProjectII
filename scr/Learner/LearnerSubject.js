@@ -4,6 +4,7 @@ import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import axios from 'axios';
 import {NavigationEvents} from 'react-navigation';
 import AnimationButton from '../../Animation';
+import token from '../token';
 
 export default class LearnerSubject extends Component {
   constructor(props) {
@@ -25,18 +26,17 @@ export default class LearnerSubject extends Component {
           this.props.navigation.getParam('_id', 'test'),
         {
           headers: {
-            Authorization:
-              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.InBpbXdpcGEi.Fr9-EvO3sQMjy19gYCMOTS3KzhoxPovPyDavL2R9qbI',
+            Authorization: 'Bearer ' + token.getToken(),
           },
         },
       )
-      .then(async res => {
+      .then(async (res) => {
         await this.setState({
           subject: res.data.chapterID,
         });
         console.log(res.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       })
       .finally(async () => {
@@ -106,7 +106,7 @@ export default class LearnerSubject extends Component {
           <Text style={styles.font}>แบบฝึกหัดก่อนเรียน</Text>
         </Button> */}
 
-        {this.state.subject.map(item => (
+        {this.state.subject.map((item) => (
           <View style={styles.test2}>
             <AnimationButton
               // animationIn="fadeIn"

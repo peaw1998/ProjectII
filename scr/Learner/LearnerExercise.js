@@ -4,6 +4,7 @@ import {StyleSheet, Image} from 'react-native';
 import axios from 'axios';
 import {NavigationEvents} from 'react-navigation';
 import QuestionComponent from './QuestionComponent';
+import token from '../token';
 import _ from 'lodash';
 import {eq} from 'react-native-reanimated';
 export const initial = {
@@ -30,7 +31,7 @@ export default class LearnerExercise extends Component {
   test = async () => {
     await this.Get();
     console.log(this.state.question);
-    let arr = this.state.question.filter(item => {
+    let arr = this.state.question.filter((item) => {
       if (item.preTest === this.state.test) return true;
       else return false;
     });
@@ -38,7 +39,7 @@ export default class LearnerExercise extends Component {
       AllQuestion: arr,
     });
 
-    let arr2 = this.state.question.filter(item => {
+    let arr2 = this.state.question.filter((item) => {
       if (item.postTest !== this.state.test) return true;
       else return false;
     });
@@ -49,7 +50,7 @@ export default class LearnerExercise extends Component {
       () => {
         this.setState({
           AllQuestionDraft: [
-            ...this.state.AllQuestion[0]?.Question.map(item => {
+            ...this.state.AllQuestion[0]?.Question.map((item) => {
               return {
                 ...item,
                 correctAnswer:
@@ -75,18 +76,17 @@ export default class LearnerExercise extends Component {
           this.props.navigation.getParam('_id', 'test'),
         {
           headers: {
-            Authorization:
-              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.InBpbXdpcGEi.Fr9-EvO3sQMjy19gYCMOTS3KzhoxPovPyDavL2R9qbI',
+            Authorization: 'Bearer ' + token.getToken(),
           },
         },
       )
-      .then(async res => {
+      .then(async (res) => {
         await this.setState({
           question: res.data,
         });
         console.log(res.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       })
       .finally(async () => {
@@ -147,7 +147,7 @@ export default class LearnerExercise extends Component {
         {this.state.index <= this.state.AllQuestionDraft.length - 1 ? (
           <QuestionComponent
             data={this.state.AllQuestionDraft[this.state.index]}
-            setNewData={t => {
+            setNewData={(t) => {
               this.setState({
                 AllQuestionDraft: this.state.AllQuestionDraft.map(
                   (item, index) => {
