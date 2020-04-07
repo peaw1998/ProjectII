@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+
 import {
   View,
   Text,
@@ -54,7 +55,7 @@ export default class LearnerResetPass extends Component {
           },
         },
       )
-      .then((res) => {
+      .then(res => {
         console.log(res.data);
         this.toggleModal();
         this.props.navigation.navigate('Login');
@@ -89,7 +90,7 @@ export default class LearnerResetPass extends Component {
                 secureTextEntry={true}
                 value={this.state.password}
                 autoCapitalize="none"
-                onChangeText={(e) => {
+                onChangeText={e => {
                   this.setState({
                     password: e,
                   });
@@ -110,7 +111,7 @@ export default class LearnerResetPass extends Component {
                 secureTextEntry={true}
                 value={this.state.confirm}
                 autoCapitalize="none"
-                onChangeText={(e) => {
+                onChangeText={e => {
                   this.setState({
                     confirm: e,
                   });
