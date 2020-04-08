@@ -37,32 +37,35 @@ export default class LearnerExercise extends Component {
     });
     this.setState({
       AllQuestion: arr,
+      AllQuestionDraft:
+        arr[0]?.Question?.map(item => {
+          return {
+            ...item,
+            correctAnswer:
+              item.type === 'draganddrop'
+                ? _.shuffle(Object.values(item.correctAnswer))
+                : '',
+          };
+        }) || [],
     });
 
     let arr2 = this.state.question.filter(item => {
       if (item.postTest !== this.state.test) return true;
       else return false;
     });
-    this.setState(
-      {
-        AllQuestion: arr2,
-      },
-      () => {
-        this.setState({
-          AllQuestionDraft: [
-            ...this.state.AllQuestion[0]?.Question.map(item => {
-              return {
-                ...item,
-                correctAnswer:
-                  item.type === 'draganddrop'
-                    ? _.shuffle(Object.values(item.correctAnswer))
-                    : '',
-              };
-            }),
-          ],
-        });
-      },
-    );
+    this.setState({
+      AllQuestion: arr2,
+      AllQuestionDraft:
+        arr2[0]?.Question?.map(item => {
+          return {
+            ...item,
+            correctAnswer:
+              item.type === 'draganddrop'
+                ? _.shuffle(Object.values(item.correctAnswer))
+                : '',
+          };
+        }) || [],
+    });
   };
 
   componentDidMount = async () => {
@@ -123,7 +126,13 @@ export default class LearnerExercise extends Component {
     if (this.state.isLoading === false) {
       return (
         <>
-          {this.render2()}
+          {this.state.AllQuestionDraft.length > 0 ? (
+            this.render2()
+          ) : (
+            <View style={styles.center}>
+              <Text style={styles.font3}>ไม่มีแบบฝึกหัด </Text>
+            </View>
+          )}
           <NavigationEvents
             onDidFocus={() => {
               this.setState({...initial}, () => {
