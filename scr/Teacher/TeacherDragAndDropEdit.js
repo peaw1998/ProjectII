@@ -61,10 +61,10 @@ export default class TeacherDragAndDropEdit extends Component {
             },
           },
         )
-        .then((res) => {
+        .then(res => {
           console.log(res.data);
         })
-        .catch((res) => {
+        .catch(res => {
           console.log(res);
         });
 
@@ -81,7 +81,12 @@ export default class TeacherDragAndDropEdit extends Component {
             this.props.navigation.getParam('exercise_ID', ''),
           {
             Question: [
-              ...this.props.navigation.getParam('Question', ''),
+              ...this.props.navigation
+                .getParam('Question', '')
+                .filter(
+                  (item, index) =>
+                    index !== this.props.navigation.getParam('index', 'test'),
+                ),
               {
                 correctAnswer: this.state.correctAnswer,
                 question: this.state.question,
@@ -95,10 +100,10 @@ export default class TeacherDragAndDropEdit extends Component {
             },
           },
         )
-        .then((res) => {
+        .then(res => {
           console.log(res.data);
         })
-        .catch((res) => {
+        .catch(res => {
           console.log(res);
         });
 
@@ -114,7 +119,7 @@ export default class TeacherDragAndDropEdit extends Component {
 
           <Item style={styles.Input}>
             <TextInput
-              onChangeText={(e) => {
+              onChangeText={e => {
                 this.setState({question: e});
               }}
               value={this.state.question}
@@ -125,7 +130,7 @@ export default class TeacherDragAndDropEdit extends Component {
           <View style={styles.answer}>
             <Item style={styles.Input}>
               <TextInput
-                onChangeText={(e) => {
+                onChangeText={e => {
                   this.setState({
                     correctAnswer: {
                       ...this.state.correctAnswer,
@@ -140,7 +145,7 @@ export default class TeacherDragAndDropEdit extends Component {
           <View style={styles.answer}>
             <Item style={styles.Input}>
               <TextInput
-                onChangeText={(e) => {
+                onChangeText={e => {
                   this.setState({
                     correctAnswer: {
                       ...this.state.correctAnswer,
@@ -155,7 +160,7 @@ export default class TeacherDragAndDropEdit extends Component {
           <View style={styles.answer}>
             <Item style={styles.Input}>
               <TextInput
-                onChangeText={(e) => {
+                onChangeText={e => {
                   this.setState({
                     correctAnswer: {
                       ...this.state.correctAnswer,
@@ -170,7 +175,7 @@ export default class TeacherDragAndDropEdit extends Component {
           <View style={styles.answer}>
             <Item style={styles.Input}>
               <TextInput
-                onChangeText={(e) => {
+                onChangeText={e => {
                   this.setState({
                     correctAnswer: {
                       ...this.state.correctAnswer,
@@ -185,7 +190,7 @@ export default class TeacherDragAndDropEdit extends Component {
           <View style={styles.answer}>
             <Item style={styles.Input}>
               <TextInput
-                onChangeText={(e) => {
+                onChangeText={e => {
                   this.setState({
                     correctAnswer: {
                       ...this.state.correctAnswer,
