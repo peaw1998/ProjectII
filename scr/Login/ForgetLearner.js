@@ -59,12 +59,13 @@ export default class ForgetLearner extends Component {
               keyboardType="email-address"
               value={this.state.email}
               autoCapitalize="none"
-              onChangeText={(e) => this.setState({email: e})}
+              onChangeText={e => this.setState({email: e})}
             />
           </View>
 
           <View>
             <Button
+              rounded
               style={styles.button}
               onPress={() => {
                 axios
@@ -74,11 +75,11 @@ export default class ForgetLearner extends Component {
                       email: this.state.email,
                     },
                   )
-                  .then((res) => {
+                  .then(res => {
                     console.log(res.data);
                     this.toggleModal();
                   })
-                  .catch((err) => {
+                  .catch(err => {
                     console.log(err);
                     this.toggleModal2();
                   });

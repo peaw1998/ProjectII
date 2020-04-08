@@ -18,6 +18,7 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  Dimensions,
 } from 'react-native';
 import {View} from 'react-native-animatable';
 import {TextInput} from 'react-native-gesture-handler';
@@ -30,170 +31,189 @@ export default class LoginScreen extends Component {
     mode: '',
     username: '',
     password: '',
+    isLoading: false,
   };
   render() {
-    return (
-      <View style={styles.Container}>
-        <View>
-          <Image
-            source={require('../../images/login2.png')}
-            style={{width: 200}}
-          />
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.center}>
+          <Spinner color="white" />
         </View>
-        <Text style={styles.font}>LOG IN</Text>
-        <View style={styles.type}>
-          <Button
-            rounded
-            style={
-              this.state.mode === 'learner' ? styles.button : styles.button3
-            }
-            onPress={() => {
-              if (this.state.mode === 'learner') {
-                this.setState({
-                  mode: '',
-                });
-              } else {
-                this.setState({
-                  mode: 'learner',
-                });
+      );
+    } else {
+      return (
+        <View style={styles.Container}>
+          <View>
+            <Image
+              source={require('../../images/login2.png')}
+              style={{width: 200}}
+            />
+          </View>
+          <Text style={styles.font}>LOG IN</Text>
+          <View style={styles.type}>
+            <Button
+              rounded
+              style={
+                this.state.mode === 'learner' ? styles.button : styles.button3
               }
-              this.setState({
-                username: '',
-                password: '',
-              });
-            }}>
-            <Text>Learner</Text>
-          </Button>
-          <Button
-            rounded
-            style={
-              this.state.mode === 'teacher' ? styles.button : styles.button3
-            }
-            onPress={() => {
-              if (this.state.mode === 'teacher') {
+              onPress={() => {
+                if (this.state.mode === 'learner') {
+                  this.setState({
+                    mode: '',
+                  });
+                } else {
+                  this.setState({
+                    mode: 'learner',
+                  });
+                }
                 this.setState({
-                  mode: '',
+                  username: '',
+                  password: '',
                 });
-              } else {
-                this.setState({
-                  mode: 'teacher',
-                });
+              }}>
+              <Text>Learner</Text>
+            </Button>
+            <Button
+              rounded
+              style={
+                this.state.mode === 'teacher' ? styles.button : styles.button3
               }
-              this.setState({
-                username: '',
-                password: '',
-              });
-            }}>
-            <Text>Teacher</Text>
-          </Button>
+              onPress={() => {
+                if (this.state.mode === 'teacher') {
+                  this.setState({
+                    mode: '',
+                  });
+                } else {
+                  this.setState({
+                    mode: 'teacher',
+                  });
+                }
+                this.setState({
+                  username: '',
+                  password: '',
+                });
+              }}>
+              <Text>Teacher</Text>
+            </Button>
+          </View>
+          {this.state.mode !== '' ? (
+            <>
+              <View style={styles.form}>
+                <TextInput
+                  style={{color: '#fff'}}
+                  placeholder="Username"
+                  placeholderTextColor="#fff"
+                  value={this.state.username}
+                  autoCapitalize="none"
+                  onChangeText={e => {
+                    this.setState({
+                      username: e,
+                    });
+                  }}
+                />
+              </View>
+              <View style={styles.form}>
+                <TextInput
+                  style={{color: '#fff'}}
+                  placeholder="Password"
+                  placeholderTextColor="#fff"
+                  secureTextEntry={true}
+                  value={this.state.password}
+                  autoCapitalize="none"
+                  onChangeText={e => {
+                    this.setState({
+                      password: e,
+                    });
+                  }}
+                />
+              </View>
+              <View>
+                <Button
+                  rounded
+                  style={styles.button}
+                  onPress={() => {
+                    if (this.state.mode === 'learner') {
+                      this.setState({isLoading: true}, () => {
+                        axios
+                          .post(
+                            'https://fast-ridge-57035.herokuapp.com/auth/learner/login',
+                            {
+                              username: this.state.username,
+                              password: this.state.password,
+                            },
+                          )
+                          .then(async res => {
+                            // await AsyncStorage.setItem('token', res.data);
+                            token.setToken(res.data);
+                            this.setState({username: '', password: ''});
+                            this.props.navigation.navigate('Home');
+                          })
+                          .catch(error => {
+                            Alert.alert('', 'wrong username or password');
+                          })
+                          .finally(() => {
+                            this.setState({isLoading: false});
+                          });
+                      });
+                    } else if (this.state.mode === 'teacher') {
+                      this.setState({isLoading: true}, () => {
+                        axios
+                          .post(
+                            'https://fast-ridge-57035.herokuapp.com/auth/teacher/login',
+                            {
+                              username: this.state.username,
+                              password: this.state.password,
+                            },
+                          )
+                          .then(async res => {
+                            // await AsyncStorage.setItem('token', res.data);
+                            token.setToken(res.data);
+                            this.setState({username: '', password: ''});
+                            this.props.navigation.navigate('วิชาทั้งหมด');
+                          })
+                          .catch(error => {
+                            Alert.alert('', 'wrong username or password');
+                          })
+                          .finally(() => {
+                            this.setState({isLoading: false});
+                          });
+                      });
+                    }
+                  }}>
+                  <Text>Log in</Text>
+                </Button>
+              </View>
+              <View style={styles.type}>
+                <Button
+                  rounded
+                  style={styles.button3}
+                  onPress={() => {
+                    if (this.state.mode === 'learner') {
+                      this.props.navigation.navigate('Register');
+                    } else if (this.state.mode === 'teacher') {
+                      this.props.navigation.navigate('สมัครสมาชิก');
+                    }
+                  }}>
+                  <Text>Sign up</Text>
+                </Button>
+                <Button
+                  rounded
+                  style={styles.button2}
+                  onPress={() => {
+                    if (this.state.mode === 'learner') {
+                      this.props.navigation.navigate('Password');
+                    } else if (this.state.mode === 'teacher') {
+                      this.props.navigation.navigate('ลืมรหัสผ่าน');
+                    }
+                  }}>
+                  <Text>Forget Password</Text>
+                </Button>
+              </View>
+            </>
+          ) : null}
         </View>
-        {this.state.mode !== '' ? (
-          <>
-            <View style={styles.form}>
-              <TextInput
-                style={{color: '#fff'}}
-                placeholder="Username"
-                placeholderTextColor="#fff"
-                value={this.state.username}
-                autoCapitalize="none"
-                onChangeText={(e) => {
-                  this.setState({
-                    username: e,
-                  });
-                }}
-              />
-            </View>
-            <View style={styles.form}>
-              <TextInput
-                style={{color: '#fff'}}
-                placeholder="Password"
-                placeholderTextColor="#fff"
-                secureTextEntry={true}
-                value={this.state.password}
-                autoCapitalize="none"
-                onChangeText={(e) => {
-                  this.setState({
-                    password: e,
-                  });
-                }}
-              />
-            </View>
-            <View>
-              <Button
-                rounded
-                style={styles.button}
-                onPress={() => {
-                  if (this.state.mode === 'learner') {
-                    axios
-                      .post(
-                        'https://fast-ridge-57035.herokuapp.com/auth/learner/login',
-                        {
-                          username: this.state.username,
-                          password: this.state.password,
-                        },
-                      )
-                      .then(async (res) => {
-                        // await AsyncStorage.setItem('token', res.data);
-                        token.setToken(res.data);
-                        this.setState({username: '', password: ''});
-                        this.props.navigation.navigate('Home');
-                      })
-                      .catch((error) => {
-                        Alert.alert('', 'wrong username or password');
-                      });
-                  } else if (this.state.mode === 'teacher') {
-                    axios
-                      .post(
-                        'https://fast-ridge-57035.herokuapp.com/auth/teacher/login',
-                        {
-                          username: this.state.username,
-                          password: this.state.password,
-                        },
-                      )
-                      .then(async (res) => {
-                        // await AsyncStorage.setItem('token', res.data);
-                        token.setToken(res.data);
-                        this.setState({username: '', password: ''});
-                        this.props.navigation.navigate('วิชาทั้งหมด');
-                      })
-                      .catch((error) => {
-                        Alert.alert('', 'wrong username or password');
-                      });
-                  }
-                }}>
-                <Text>Log in</Text>
-              </Button>
-            </View>
-            <View style={styles.type}>
-              <Button
-                rounded
-                style={styles.button3}
-                onPress={() => {
-                  if (this.state.mode === 'learner') {
-                    this.props.navigation.navigate('Register');
-                  } else if (this.state.mode === 'teacher') {
-                    this.props.navigation.navigate('สมัครสมาชิก');
-                  }
-                }}>
-                <Text>Sign up</Text>
-              </Button>
-              <Button
-                rounded
-                style={styles.button2}
-                onPress={() => {
-                  if (this.state.mode === 'learner') {
-                    this.props.navigation.navigate('Password');
-                  } else if (this.state.mode === 'teacher') {
-                    this.props.navigation.navigate('ลืมรหัสผ่าน');
-                  }
-                }}>
-                <Text>Forget Password</Text>
-              </Button>
-            </View>
-          </>
-        ) : null}
-      </View>
-    );
+      );
+    }
   }
 }
 
@@ -255,5 +275,12 @@ const styles = StyleSheet.create({
     // backgroundColor: '#b23751',
     borderRadius: 40,
     padding: 15,
+  },
+  center: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: Math.round(Dimensions.get('window').height),
   },
 });
