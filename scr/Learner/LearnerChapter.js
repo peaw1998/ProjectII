@@ -17,8 +17,9 @@ import {
 import {StyleSheet, Image, TextInput, Dimensions} from 'react-native';
 import Modal from 'react-native-modal';
 import axios from 'axios';
-import HTML from 'react-native-render-html';
+// import HTML from 'react-native-render-html';
 import token from '../token';
+import {WebView} from 'react-native-webview';
 
 export default class LearnerChapter extends Component {
   constructor(props) {
@@ -68,7 +69,17 @@ export default class LearnerChapter extends Component {
 
   render() {
     if (this.state.isLoading === false) {
-      return <View>{this.renderSubject()}</View>;
+      return (
+        <WebView
+          originWhitelist={['*']}
+          source={{
+            html: `<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body>
+            <h1 style="text-align:center;">${this.state.chapter_name}</h1>
+            <hr/>
+            ${this.state.content}</body></html>`,
+          }}
+        />
+      );
     } else {
       return (
         <View style={styles.container}>
@@ -76,37 +87,6 @@ export default class LearnerChapter extends Component {
         </View>
       );
     }
-  }
-
-  renderSubject() {
-    return (
-      <>
-        <View>
-          <Card style={{flex: 0}}>
-            <CardItem>
-              <Left>
-                <Thumbnail source={require('../../images/2.png')} />
-                <Body>
-                  <Text style={styles.font2}>{this.state.chapter_name}</Text>
-                </Body>
-              </Left>
-            </CardItem>
-            <CardItem>
-              <Body>
-                {/* <Text style={styles.font3}>{this.state.content}</Text>
-                 */}
-                <View style={{backgroundColor: '#'}}>
-                  <HTML
-                    html={this.state.content}
-                    imagesMaxWidth={Dimensions.get('window').width}
-                  />
-                </View>
-              </Body>
-            </CardItem>
-          </Card>
-        </View>
-      </>
-    );
   }
 }
 

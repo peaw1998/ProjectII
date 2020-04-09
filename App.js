@@ -309,13 +309,13 @@ const MainNavigator = createStackNavigator(
     Chapter: {
       screen: props => {
         return (
-          <ThemeContext.Provider value={getTheme(uiTheme)}>
-            <Container>
-              <ScrollView>
-                <LearnerChapter {...props} />
-              </ScrollView>
-            </Container>
-          </ThemeContext.Provider>
+          // <ThemeContext.Provider value={getTheme(uiTheme)}>
+          //   <Container>
+          //     <ScrollView>
+          <LearnerChapter {...props} />
+          // </ScrollView>
+          // </Container>
+          // </ThemeContext.Provider>
         );
       },
     },
