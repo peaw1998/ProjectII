@@ -41,15 +41,15 @@ export default class LearnerProfile extends Component {
           Authorization: 'Bearer ' + token.getToken(),
         },
       })
-      .then(async (res) => {
+      .then(async res => {
         await this.setState({
           username: res.data.username,
           email: res.data.email,
         });
-        console.log(res.data);
+        //console.log(res.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(error => {
+        //console.log(error);
       })
       .finally(async () => {
         await this.setState({

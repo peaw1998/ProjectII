@@ -46,13 +46,13 @@ export default class LearnerHome extends Component {
           Authorization: 'Bearer ' + token.getToken(),
         },
       })
-      .then(async (res) => {
+      .then(async res => {
         await this.setState({
           subject: res.data.users,
         });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(error => {
+        //console.log(error);
       })
       .finally(async () => {
         await this.setState({
@@ -106,7 +106,7 @@ export default class LearnerHome extends Component {
 
         <Text style={styles.font2}>คอร์สเรียนทั้งหมด</Text>
 
-        {this.state.subject.map((item) => (
+        {this.state.subject.map(item => (
           <View style={styles.test2}>
             <AnimationButton
               animation="bounceIn"

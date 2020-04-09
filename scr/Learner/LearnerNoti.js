@@ -40,14 +40,14 @@ export default class LearnerNoti extends Component {
           Authorization: 'Bearer ' + token.getToken(),
         },
       })
-      .then(async (res) => {
+      .then(async res => {
         await this.setState({
           Noti: res.data,
         });
-        console.log(res.data);
+        //console.log(res.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(error => {
+        //console.log(error);
       })
       .finally(async () => {
         await this.setState({
@@ -80,7 +80,7 @@ export default class LearnerNoti extends Component {
   renderSubject() {
     return (
       <View>
-        {this.state.Noti.map((item) => (
+        {this.state.Noti.map(item => (
           <Card style={{flex: 0}}>
             <CardItem>
               <Left>

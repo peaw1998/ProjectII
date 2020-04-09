@@ -29,11 +29,11 @@ export default class TeacherSubjectEdit extends Component {
             },
           },
         )
-        .then((res) => {
-          console.log(res.data);
+        .then(res => {
+          //console.log(res.data);
         })
-        .catch((res) => {
-          console.log(res);
+        .catch(res => {
+          //console.log(res);
         });
 
       this.props.navigation.navigate('วิชาทั้งหมด');
@@ -47,7 +47,7 @@ export default class TeacherSubjectEdit extends Component {
           <Text style={styles.font}>ชื่อวิชา</Text>
           <Item style={styles.Input}>
             <TextInput
-              onChangeText={(e) => {
+              onChangeText={e => {
                 this.setState({subject_name: e});
               }}
               value={this.state.subject_name}

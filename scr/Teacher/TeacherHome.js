@@ -43,13 +43,13 @@ export default class Main extends Component {
           Authorization: 'Bearer ' + token.getToken(),
         },
       })
-      .then(async (res) => {
+      .then(async res => {
         await this.setState({
           subject: res.data.users,
         });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(error => {
+        //console.log(error);
       })
       .finally(async () => {
         await this.setState({
@@ -98,7 +98,7 @@ export default class Main extends Component {
         </View>
 
         <Text style={styles.font2}>วิชาทั้งหมด</Text>
-        {this.state.subject.map((item) => (
+        {this.state.subject.map(item => (
           <View style={styles.rowContainer}>
             <View style={styles.button}>
               <Button

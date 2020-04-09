@@ -44,7 +44,7 @@ export default class RegisLearner extends Component {
   toggleModal2 = () => {
     this.setState({isModalVisible2: !this.state.isModalVisible2});
   };
-  ValidateEmail = (mail) => {
+  ValidateEmail = mail => {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
       return false;
     }
@@ -70,7 +70,7 @@ export default class RegisLearner extends Component {
               placeholderTextColor="#fff"
               autoCapitalize="none"
               value={this.state.username}
-              onChangeText={(e) => this.setState({username: e})}
+              onChangeText={e => this.setState({username: e})}
             />
           </View>
           <View style={styles.form}>
@@ -82,7 +82,7 @@ export default class RegisLearner extends Component {
               keyboardType="email-address"
               autoCapitalize="none"
               value={this.state.email}
-              onChangeText={(e) => this.setState({email: e})}
+              onChangeText={e => this.setState({email: e})}
             />
           </View>
           <View style={styles.form}>
@@ -93,7 +93,7 @@ export default class RegisLearner extends Component {
               secureTextEntry={true}
               autoCapitalize="none"
               value={this.state.password}
-              onChangeText={(e) => this.setState({password: e})}
+              onChangeText={e => this.setState({password: e})}
             />
           </View>
           <View style={styles.form}>
@@ -104,7 +104,7 @@ export default class RegisLearner extends Component {
               secureTextEntry={true}
               autoCapitalize="none"
               value={this.state.confirm}
-              onChangeText={(e) => this.setState({confirm: e})}
+              onChangeText={e => this.setState({confirm: e})}
             />
           </View>
 
@@ -142,13 +142,13 @@ export default class RegisLearner extends Component {
                         email: this.state.email,
                       },
                     )
-                    .then((res) => {
-                      console.log(res.data);
+                    .then(res => {
+                      //console.log(res.data);
                       this.setState({word: translate(res.data)});
                       this.toggleModal2();
                     })
-                    .catch((err) => {
-                      console.log(translate(err.response.data));
+                    .catch(err => {
+                      //console.log(translate(err.response.data));
                       this.setState({word: translate(err.response.data)});
                       this.toggleModal();
                     });

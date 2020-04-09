@@ -46,16 +46,16 @@ export default class LearnerNotiShow extends Component {
           },
         },
       )
-      .then(async (res) => {
+      .then(async res => {
         await this.setState({
           notificationName: res.data.notificationName,
           content: res.data.content,
           updatedAt: res.data.updatedAt,
         });
-        console.log(res.data);
+        //console.log(res.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(error => {
+        //console.log(error);
       })
       .finally(async () => {
         await this.setState({

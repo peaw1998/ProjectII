@@ -30,7 +30,7 @@ export default class LearnerExercise extends Component {
 
   test = async () => {
     await this.Get();
-    console.log(this.state.question);
+    //console.log(this.state.question);
     let arr = this.state.question.filter(item => {
       if (item.preTest === this.state.test) return true;
       else return false;
@@ -87,10 +87,10 @@ export default class LearnerExercise extends Component {
         await this.setState({
           question: res.data,
         });
-        console.log(res.data);
+        //console.log(res.data);
       })
       .catch(error => {
-        console.log(error);
+        //console.log(error);
       })
       .finally(async () => {
         await this.setState({
@@ -106,8 +106,8 @@ export default class LearnerExercise extends Component {
           JSON.stringify(this.state.AllQuestionDraft[index].correctAnswer) ===
           JSON.stringify(Object.values(item.correctAnswer))
         ) {
-          console.log('text', this.state.AllQuestionDraft[index]);
-          console.log('text22', item);
+          //console.log('text', this.state.AllQuestionDraft[index]);
+          //console.log('text22', item);
           return true;
         }
       } else if (this.state.AllQuestionDraft[index]) {

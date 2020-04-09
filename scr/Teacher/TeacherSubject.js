@@ -29,14 +29,14 @@ export default class TeacherSubject extends Component {
           },
         },
       )
-      .then(async (res) => {
+      .then(async res => {
         await this.setState({
           subject: res.data.chapterID,
         });
-        console.log(res.data);
+        //console.log(res.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(error => {
+        //console.log(error);
       })
       .finally(async () => {
         await this.setState({
@@ -71,7 +71,7 @@ export default class TeacherSubject extends Component {
       <View
       // style={styles.main}
       >
-        {this.state.subject.map((item) => (
+        {this.state.subject.map(item => (
           <View style={styles.rowContainer}>
             <View>
               <Button

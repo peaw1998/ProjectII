@@ -50,14 +50,14 @@ export default class LearnerChapter extends Component {
           },
         },
       )
-      .then(async (res) => {
+      .then(async res => {
         await this.setState({
           chapter_name: res.data.chapterName,
           content: res.data.content,
         });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(error => {
+        //console.log(error);
       })
       .finally(async () => {
         await this.setState({

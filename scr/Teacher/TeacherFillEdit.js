@@ -54,11 +54,11 @@ export default class TeacherFill extends Component {
             },
           },
         )
-        .then((res) => {
-          console.log(res.data);
+        .then(res => {
+          //console.log(res.data);
         })
-        .catch((res) => {
-          console.log(res);
+        .catch(res => {
+          //console.log(res);
         });
 
       this.props.navigation.navigate('แบบฝึกหัด');
@@ -88,11 +88,11 @@ export default class TeacherFill extends Component {
             },
           },
         )
-        .then((res) => {
-          console.log(res.data);
+        .then(res => {
+          //console.log(res.data);
         })
-        .catch((res) => {
-          console.log(res);
+        .catch(res => {
+          //console.log(res);
         });
 
       this.props.navigation.navigate('แบบฝึกหัด');
@@ -106,7 +106,7 @@ export default class TeacherFill extends Component {
           <Text style={styles.font}>คำถาม</Text>
           <Item style={styles.Input}>
             <TextInput
-              onChangeText={(e) => {
+              onChangeText={e => {
                 this.setState({question: e});
               }}
               value={this.state.question}
@@ -115,7 +115,7 @@ export default class TeacherFill extends Component {
           <Text style={styles.font}>คำตอบที่ถูกต้องที่สุด</Text>
           <Item style={styles.Input}>
             <TextInput
-              onChangeText={(e) => {
+              onChangeText={e => {
                 this.setState({correctAnswer: e});
               }}
               value={this.state.correctAnswer}

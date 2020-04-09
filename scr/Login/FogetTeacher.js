@@ -77,11 +77,11 @@ export default class ForgetTeacher extends Component {
                     },
                   )
                   .then(res => {
-                    console.log(res.data);
+                    //console.log(res.data);
                     this.toggleModal();
                   })
                   .catch(err => {
-                    console.log(err);
+                    //console.log(err);
                     this.toggleModal2();
                   });
               }}>

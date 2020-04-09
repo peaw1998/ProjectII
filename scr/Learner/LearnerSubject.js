@@ -30,14 +30,14 @@ export default class LearnerSubject extends Component {
           },
         },
       )
-      .then(async (res) => {
+      .then(async res => {
         await this.setState({
           subject: res.data.chapterID,
         });
-        console.log(res.data);
+        //console.log(res.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(error => {
+        //console.log(error);
       })
       .finally(async () => {
         await this.setState({
@@ -86,7 +86,8 @@ export default class LearnerSubject extends Component {
             <TouchableOpacity style={styles.test3}>
               <Image
                 source={require('../../images/3.png')}
-                style={{width: 60, height: 60}}></Image>
+                style={{width: 60, height: 60}}
+              />
               <Text style={styles.font}>แบบฝึกหัดก่อนเรียน</Text>
             </TouchableOpacity>
           </AnimationButton>
@@ -106,7 +107,7 @@ export default class LearnerSubject extends Component {
           <Text style={styles.font}>แบบฝึกหัดก่อนเรียน</Text>
         </Button> */}
 
-        {this.state.subject.map((item) => (
+        {this.state.subject.map(item => (
           <View style={styles.test2}>
             <AnimationButton
               // animationIn="fadeIn"
@@ -122,7 +123,8 @@ export default class LearnerSubject extends Component {
               <TouchableOpacity style={styles.test}>
                 <Image
                   source={require('../../images/2.png')}
-                  style={{width: 60, height: 60}}></Image>
+                  style={{width: 60, height: 60}}
+                />
 
                 <Text style={styles.font}>{item.chapterName}</Text>
               </TouchableOpacity>
@@ -162,7 +164,8 @@ export default class LearnerSubject extends Component {
             <TouchableOpacity style={styles.test3}>
               <Image
                 source={require('../../images/3.png')}
-                style={{width: 60, height: 60}}></Image>
+                style={{width: 60, height: 60}}
+              />
               <Text style={styles.font}>แบบฝึกหัดหลังเรียน</Text>
             </TouchableOpacity>
           </AnimationButton>

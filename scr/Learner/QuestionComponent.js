@@ -204,7 +204,7 @@ export default class QuestionComponent extends Component {
           <OneRowsPage
             data={this.props.data?.correctAnswer}
             onChange={data => {
-              //   console.log('what', data);
+              //   //console.log('what', data);
               this.props.setNewData({
                 ...this.props.data,
                 correctAnswer: data,

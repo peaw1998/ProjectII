@@ -24,14 +24,14 @@ export default class TeacherNoti extends Component {
           Authorization: 'Bearer ' + token.getToken(),
         },
       })
-      .then(async (res) => {
+      .then(async res => {
         await this.setState({
           Noti: res.data,
         });
-        console.log(res.data);
+        //console.log(res.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(error => {
+        //console.log(error);
       })
       .finally(async () => {
         await this.setState({
@@ -73,7 +73,7 @@ export default class TeacherNoti extends Component {
             </Button>
           </View>
         </View> */}
-        {this.state.Noti.map((item) => (
+        {this.state.Noti.map(item => (
           <View style={styles.rowContainer}>
             <View>
               <Button

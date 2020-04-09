@@ -62,11 +62,11 @@ export default class TeacherChoiceEdit extends Component {
             },
           },
         )
-        .then((res) => {
-          console.log(res.data);
+        .then(res => {
+          //console.log(res.data);
         })
-        .catch((res) => {
-          console.log(res);
+        .catch(res => {
+          //console.log(res);
         });
 
       this.props.navigation.navigate('แบบฝึกหัด');
@@ -96,11 +96,11 @@ export default class TeacherChoiceEdit extends Component {
             },
           },
         )
-        .then((res) => {
-          console.log(res.data);
+        .then(res => {
+          //console.log(res.data);
         })
-        .catch((res) => {
-          console.log(res);
+        .catch(res => {
+          //console.log(res);
         });
 
       this.props.navigation.navigate('แบบฝึกหัด');
@@ -115,7 +115,7 @@ export default class TeacherChoiceEdit extends Component {
 
           <Item style={styles.Input}>
             <TextInput
-              onChangeText={(e) => {
+              onChangeText={e => {
                 this.setState({question: e});
               }}
               value={this.state.question}
@@ -126,7 +126,7 @@ export default class TeacherChoiceEdit extends Component {
           <View style={styles.answer}>
             <Item style={styles.Input}>
               <TextInput
-                onChangeText={(e) => {
+                onChangeText={e => {
                   this.setState({
                     options: {
                       ...this.state.options,
@@ -148,7 +148,7 @@ export default class TeacherChoiceEdit extends Component {
           <View style={styles.answer}>
             <Item style={styles.Input}>
               <TextInput
-                onChangeText={(e) => {
+                onChangeText={e => {
                   this.setState({
                     options: {
                       ...this.state.options,
@@ -169,7 +169,7 @@ export default class TeacherChoiceEdit extends Component {
           <View style={styles.answer}>
             <Item style={styles.Input}>
               <TextInput
-                onChangeText={(e) => {
+                onChangeText={e => {
                   this.setState({
                     options: {
                       ...this.state.options,
@@ -190,7 +190,7 @@ export default class TeacherChoiceEdit extends Component {
           <View style={styles.answer}>
             <Item style={styles.Input}>
               <TextInput
-                onChangeText={(e) => {
+                onChangeText={e => {
                   this.setState({
                     options: {
                       ...this.state.options,

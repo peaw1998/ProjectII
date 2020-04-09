@@ -25,15 +25,15 @@ export default class TeacherExercise extends Component {
 
   test = async () => {
     await this.Get();
-    console.log(this.state.question);
-    let arr = this.state.question.filter((item) => {
+    //console.log(this.state.question);
+    let arr = this.state.question.filter(item => {
       if (item.preTest === true) return true;
       else return false;
     });
     this.setState({
       Pre: arr,
     });
-    let arr2 = this.state.question.filter((item) => {
+    let arr2 = this.state.question.filter(item => {
       if (item.postTest === true) return true;
       else return false;
     });
@@ -57,14 +57,14 @@ export default class TeacherExercise extends Component {
           },
         },
       )
-      .then(async (res) => {
+      .then(async res => {
         await this.setState({
           question: res.data,
         });
-        console.log(res.data);
+        //console.log(res.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(error => {
+        //console.log(error);
       })
       .finally(async () => {
         await this.setState({

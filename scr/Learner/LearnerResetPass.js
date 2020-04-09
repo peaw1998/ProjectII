@@ -56,7 +56,7 @@ export default class LearnerResetPass extends Component {
         },
       )
       .then(res => {
-        console.log(res.data);
+        //console.log(res.data);
         this.toggleModal();
         this.props.navigation.navigate('Login');
       });
@@ -126,15 +126,15 @@ export default class LearnerResetPass extends Component {
             text="test"
             onPress={() => {
               if (this.state.password !== this.state.confirm) {
-                console.log('not duplicate');
+                //console.log('not duplicate');
                 this.setState({word: 'กรุณากรอกรหัสให้เหมือนกัน'});
                 this.toggleModal2();
               } else if (this.state.password.length < 8) {
-                console.log('too short');
+                //console.log('too short');
                 this.setState({word: 'รหัสควรมีอย่างน้อย 8 ตัวอักษร'});
                 this.toggleModal2();
               } else {
-                console.log('success');
+                //console.log('success');
                 this.toggleModal();
               }
               // this.props.navigation.navigate('Profile');

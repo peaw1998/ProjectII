@@ -62,10 +62,10 @@ export default class TeacherDragAndDropEdit extends Component {
           },
         )
         .then(res => {
-          console.log(res.data);
+          //console.log(res.data);
         })
         .catch(res => {
-          console.log(res);
+          //console.log(res);
         });
 
       this.props.navigation.navigate('แบบฝึกหัด');
@@ -101,10 +101,10 @@ export default class TeacherDragAndDropEdit extends Component {
           },
         )
         .then(res => {
-          console.log(res.data);
+          //console.log(res.data);
         })
         .catch(res => {
-          console.log(res);
+          //console.log(res);
         });
 
       this.props.navigation.navigate('แบบฝึกหัด');

@@ -32,11 +32,11 @@ export default class TeacherSubjectEdit extends Component {
             },
           },
         )
-        .then((res) => {
-          console.log(res.data);
+        .then(res => {
+          //console.log(res.data);
         })
-        .catch((res) => {
-          console.log(res);
+        .catch(res => {
+          //console.log(res);
         });
 
       this.props.navigation.navigate('บทเรียน');
@@ -50,7 +50,7 @@ export default class TeacherSubjectEdit extends Component {
           <Text style={styles.font}>ชื่อบทเรียน</Text>
           <Item style={styles.Input}>
             <TextInput
-              onChangeText={(e) => {
+              onChangeText={e => {
                 this.setState({chapter_name: e});
               }}
               value={this.state.chapter_name}
@@ -59,7 +59,7 @@ export default class TeacherSubjectEdit extends Component {
           <Text style={styles.font}>เนื้อหา</Text>
           <Item style={styles.Input}>
             <TextInput
-              onChangeText={(e) => {
+              onChangeText={e => {
                 this.setState({content: e});
               }}
               value={this.state.content}

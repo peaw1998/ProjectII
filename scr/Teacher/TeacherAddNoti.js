@@ -31,11 +31,11 @@ export default class TeacherSubjectEdit extends Component {
             },
           },
         )
-        .then((res) => {
-          console.log(res.data);
+        .then(res => {
+          //console.log(res.data);
         })
-        .catch((res) => {
-          console.log(res);
+        .catch(res => {
+          //console.log(res);
         });
 
       this.props.navigation.navigate('ประกาศทั้งหมด');
@@ -49,7 +49,7 @@ export default class TeacherSubjectEdit extends Component {
           <Text style={styles.font}>ชื่อประกาศ</Text>
           <Item style={styles.Input}>
             <TextInput
-              onChangeText={(e) => {
+              onChangeText={e => {
                 this.setState({notificationName: e});
               }}
               value={this.state.notificationName}
@@ -58,7 +58,7 @@ export default class TeacherSubjectEdit extends Component {
           <Text style={styles.font}>เนื้อหาประกาศ</Text>
           <Item style={styles.Input}>
             <TextInput
-              onChangeText={(e) => {
+              onChangeText={e => {
                 this.setState({content: e});
               }}
               value={this.state.content}
