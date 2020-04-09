@@ -146,9 +146,10 @@ export default class LoginScreen extends Component {
                             // await AsyncStorage.setItem('token', res.data);
                             token.setToken(res.data);
                             this.setState({username: '', password: ''});
-                            this.props.navigation.navigate('Home');
+                            this.props.navigation.navigate('AppLearner');
                           })
                           .catch(error => {
+                            console.log(error);
                             Alert.alert('', 'wrong username or password');
                           })
                           .finally(() => {
@@ -169,7 +170,7 @@ export default class LoginScreen extends Component {
                             // await AsyncStorage.setItem('token', res.data);
                             token.setToken(res.data);
                             this.setState({username: '', password: ''});
-                            this.props.navigation.navigate('วิชาทั้งหมด');
+                            this.props.navigation.navigate('AppTeacher');
                           })
                           .catch(error => {
                             Alert.alert('', 'wrong username or password');
