@@ -136,13 +136,13 @@ const AppLearner = createStackNavigator(
     Home: {
       screen: props => {
         return (
-          // <ThemeContext.Provider value={getTheme(uiTheme)}>
-          //   <Container>
-          //     <ScrollView>
-          <LearnerNotiShow {...props} />
-          //     </ScrollView>
-          //   </Container>
-          // </ThemeContext.Provider>
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <Container>
+              <ScrollView>
+                <LearnerHome {...props} />
+              </ScrollView>
+            </Container>
+          </ThemeContext.Provider>
         );
       },
       navigationOptions: {
