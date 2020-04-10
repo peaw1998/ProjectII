@@ -68,14 +68,15 @@ export default class LearnerNotiShow extends Component {
   render() {
     if (this.state.isLoading === false) {
       return (
-        <View>
-          {this.renderSubject()}
-          <NavigationEvents
-            onDidFocus={() => {
-              this.getNoti();
-            }}
-          />
-        </View>
+        <>{this.renderSubject()}</>
+        // <View>
+        //   {this.renderSubject()}
+        //   <NavigationEvents
+        //     onDidFocus={() => {
+        //       this.getNoti();
+        //     }}
+        //   />
+        // </View>
       );
     } else {
       return (
