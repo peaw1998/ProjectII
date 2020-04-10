@@ -55,25 +55,81 @@ const uiTheme = {
   },
 };
 
-const AuthStack = createStackNavigator({
-  Login: {
-    screen: props => {
-      return (
-        <ThemeContext.Provider value={getTheme(uiTheme)}>
-          <LoginS>
-            <ScrollView>
-              <LoginScreen {...props} />
-            </ScrollView>
-          </LoginS>
-        </ThemeContext.Provider>
-      );
+const AuthStack = createStackNavigator(
+  {
+    Login: {
+      screen: props => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <LoginS>
+              <ScrollView>
+                <LoginScreen {...props} />
+              </ScrollView>
+            </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
+      navigationOptions: {
+        headerShown: false,
+      },
     },
-    navigationOptions: {
-      headerShown: false,
-      initialRouteName: 'Login',
+    Password: {
+      screen: props => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <LoginS>
+              <ScrollView>
+                <ForgetLearner {...props} />
+              </ScrollView>
+            </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
+    },
+    สมัครสมาชิก: {
+      screen: props => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <LoginS>
+              <ScrollView>
+                <RegisTeacher {...props} />
+              </ScrollView>
+            </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
+    },
+    Register: {
+      screen: props => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <LoginS>
+              <ScrollView>
+                <RegisLearner {...props} />
+              </ScrollView>
+            </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
+    },
+    ลืมรหัสผ่าน: {
+      screen: props => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <LoginS>
+              <ScrollView>
+                <ForgetTeacher {...props} />
+              </ScrollView>
+            </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
     },
   },
-});
+  {
+    initialRouteName: 'Login',
+  },
+);
 
 const AppLearner = createStackNavigator(
   {
@@ -154,58 +210,6 @@ const AppLearner = createStackNavigator(
                 <LearnerNotiShow {...props} />
               </ScrollView>
             </Container>
-          </ThemeContext.Provider>
-        );
-      },
-    },
-    สมัครสมาชิก: {
-      screen: props => {
-        return (
-          <ThemeContext.Provider value={getTheme(uiTheme)}>
-            <LoginS>
-              <ScrollView>
-                <RegisTeacher {...props} />
-              </ScrollView>
-            </LoginS>
-          </ThemeContext.Provider>
-        );
-      },
-    },
-    Register: {
-      screen: props => {
-        return (
-          <ThemeContext.Provider value={getTheme(uiTheme)}>
-            <LoginS>
-              <ScrollView>
-                <RegisLearner {...props} />
-              </ScrollView>
-            </LoginS>
-          </ThemeContext.Provider>
-        );
-      },
-    },
-    ลืมรหัสผ่าน: {
-      screen: props => {
-        return (
-          <ThemeContext.Provider value={getTheme(uiTheme)}>
-            <LoginS>
-              <ScrollView>
-                <ForgetTeacher {...props} />
-              </ScrollView>
-            </LoginS>
-          </ThemeContext.Provider>
-        );
-      },
-    },
-    Password: {
-      screen: props => {
-        return (
-          <ThemeContext.Provider value={getTheme(uiTheme)}>
-            <LoginS>
-              <ScrollView>
-                <ForgetLearner {...props} />
-              </ScrollView>
-            </LoginS>
           </ThemeContext.Provider>
         );
       },
