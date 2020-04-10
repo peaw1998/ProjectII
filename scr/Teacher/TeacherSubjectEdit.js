@@ -109,10 +109,10 @@ export default class TeacherSubjectEdit extends Component {
           },
         )
         .then(res => {
-          //console.log(res.data);
+          console.log(res.data);
         })
         .catch(res => {
-          //console.log(res);
+          console.log(res);
         });
 
       this.props.navigation.navigate('บทเรียน');

@@ -1,18 +1,30 @@
 import React, {Component} from 'react';
 import {View, Text, Button, Input, Item, Spinner} from 'native-base';
-import {StyleSheet, Image, TextInput} from 'react-native';
+import {
+  StyleSheet,
+  Image,
+  TextInput,
+  SafeAreaView,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import Modal from 'react-native-modal';
 import axios from 'axios';
 import token from '../token';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+import RNDraftView from 'react-native-draftjs-editor';
 
-export default class TeacherSubjectEdit extends Component {
+export default class TeacherAddNoti extends Component {
   constructor(props) {
     super(props);
     this.state = {
       notificationName: '',
       content: '',
       isPress: false,
+      activeStyles: [],
+      blockType: 'unstyled',
     };
+    this._draftRef = React.createRef();
   }
 
   Post = async () => {
@@ -32,16 +44,15 @@ export default class TeacherSubjectEdit extends Component {
           },
         )
         .then(res => {
-          //console.log(res.data);
+          console.log(res.data);
         })
         .catch(res => {
-          //console.log(res);
+          console.log(res);
         });
 
       this.props.navigation.navigate('ประกาศทั้งหมด');
     }
   };
-
   render() {
     return (
       <>
@@ -56,30 +67,80 @@ export default class TeacherSubjectEdit extends Component {
             />
           </Item>
           <Text style={styles.font}>เนื้อหาประกาศ</Text>
-          <Item style={styles.Input}>
-            <TextInput
-              onChangeText={e => {
-                this.setState({content: e});
-              }}
-              value={this.state.content}
-            />
-          </Item>
+        </View>
+        {this.renderWysiwyg()}
+       
+        <View style={styles.main}>
           <Item style={styles.button}>
-            <Button style={{backgroundColor: '#00701a', borderRadius: 20}}>
-              <Text style={styles.font} onPress={this.Post}>
-                บันทึก
-              </Text>
+            <Button
+              style={{backgroundColor: '#00701a', borderRadius: 20}}
+              onPress={() => {
+                this.Post();
+              }}>
+              <Text style={styles.font}>บันทึก</Text>
             </Button>
           </Item>
         </View>
       </>
     );
   }
+
+  styleMap = {
+    STRIKETHROUGH: {
+      textDecoration: 'line-through',
+    },
+  };
+
+  setActiveStyles = e => {
+    this.setState({activeStyles: e});
+  };
+
+  setActiveBlockType = e => {
+    this.setState({blockType: e});
+  };
+
+  renderWysiwyg = () => {
+    const defaultValue = '';
+
+    const editorLoaded = () => {
+      this._draftRef.current && this._draftRef.current.focus();
+    };
+
+    const toggleStyle = style => {
+      this._draftRef.current && this._draftRef.current.setStyle(style);
+    };
+
+    const toggleBlockType = blockType => {
+      this._draftRef.current && this._draftRef.current.setBlockType(blockType);
+    };
+    return (
+      <>
+        <SafeAreaView style={styles.containerStyle}>
+          <RNDraftView
+            defaultValue={this.state.content}
+            onEditorReady={editorLoaded}
+            style={{flex: 1}}
+            placeholder={'Add text here...'}
+            ref={this._draftRef}
+            onStyleChanged={this.setActiveStyles}
+            onBlockTypeChanged={this.setActiveBlockType}
+            styleMap={this.styleMap}
+          />
+          <EditorToolBar
+            activeStyles={this.state.activeStyles}
+            blockType={this.state.blockType}
+            toggleStyle={toggleStyle}
+            toggleBlockType={toggleBlockType}
+          />
+          {Platform.OS === 'ios' ? <KeyboardSpacer /> : null}
+        </SafeAreaView>
+      </>
+    );
+  };
 }
 
 const styles = StyleSheet.create({
   main: {
-    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#e0e0e0',
@@ -88,6 +149,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 350,
     height: 50,
+    backgroundColor: '#FFFFFF',
+    flexDirection: 'column',
+    marginTop: 10,
+    borderRadius: 10,
+  },
+  Input2: {
+    justifyContent: 'center',
+    width: 350,
+    height: 450,
     backgroundColor: '#FFFFFF',
     flexDirection: 'column',
     marginTop: 10,
@@ -126,4 +196,74 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flexDirection: 'row',
   },
+  containerStyle: {
+    flex: 1,
+    // marginTop: 36,
+  },
+  toolbarContainer: {
+    height: 56,
+    flexDirection: 'row',
+    backgroundColor: 'silver',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  controlButtonContainer: {
+    padding: 8,
+    borderRadius: 2,
+  },
 });
+
+export const ControlButton = ({text, action, isActive}) => {
+  return (
+    <TouchableOpacity
+      style={[
+        styles.controlButtonContainer,
+        isActive ? {backgroundColor: 'gold'} : {},
+      ]}
+      onPress={action}>
+      <Text>{text}</Text>
+    </TouchableOpacity>
+  );
+};
+
+export const EditorToolBar = ({
+  activeStyles,
+  blockType,
+  toggleStyle,
+  toggleBlockType,
+}) => {
+  return (
+    <View style={styles.toolbarContainer}>
+      <ControlButton
+        text={'B'}
+        isActive={activeStyles.includes('BOLD')}
+        action={() => toggleStyle('BOLD')}
+      />
+      <ControlButton
+        text={'I'}
+        isActive={activeStyles.includes('ITALIC')}
+        action={() => toggleStyle('ITALIC')}
+      />
+      <ControlButton
+        text={'H'}
+        isActive={blockType === 'header-one'}
+        action={() => toggleBlockType('header-one')}
+      />
+      <ControlButton
+        text={'ul'}
+        isActive={blockType === 'unordered-list-item'}
+        action={() => toggleBlockType('unordered-list-item')}
+      />
+      <ControlButton
+        text={'ol'}
+        isActive={blockType === 'ordered-list-item'}
+        action={() => toggleBlockType('ordered-list-item')}
+      />
+      <ControlButton
+        text={'--'}
+        isActive={activeStyles.includes('STRIKETHROUGH')}
+        action={() => toggleStyle('STRIKETHROUGH')}
+      />
+    </View>
+  );
+};
