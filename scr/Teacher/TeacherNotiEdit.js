@@ -1,9 +1,18 @@
 import React, {Component} from 'react';
 import {View, Text, Button, Input, Item, Spinner} from 'native-base';
-import {StyleSheet, Image, TextInput} from 'react-native';
+import {
+  StyleSheet,
+  Image,
+  TextInput,
+  SafeAreaView,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import Modal from 'react-native-modal';
 import axios from 'axios';
 import token from '../token';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+import RNDraftView from 'react-native-draftjs-editor';
 
 export default class TeacherSubjectEdit extends Component {
   constructor(props) {
@@ -15,7 +24,10 @@ export default class TeacherSubjectEdit extends Component {
       isModalVisible: false,
       isPress: false,
       isPress2: false,
+      activeStyles: [],
+      blockType: 'unstyled',
     };
+    this._draftRef = React.createRef();
   }
   toggleModal = () => {
     this.setState({isModalVisible: !this.state.isModalVisible});
@@ -42,7 +54,7 @@ export default class TeacherSubjectEdit extends Component {
         });
       })
       .catch(error => {
-        //console.log(error);
+        console.log(error);
       })
       .finally(async () => {
         await this.setState({
@@ -60,7 +72,9 @@ export default class TeacherSubjectEdit extends Component {
             this.props.navigation.getParam('_id', 'test'),
           {
             notificationName: this.state.notificationName,
-            content: this.state.content,
+            content: this._draftRef.current
+              ? this._draftRef.current.getEditorState()
+              : this.state.content,
           },
           {
             headers: {
@@ -93,10 +107,10 @@ export default class TeacherSubjectEdit extends Component {
           },
         )
         .then(res => {
-          //console.log(res.data);
+          console.log(res.data);
         })
         .catch(res => {
-          //console.log(res);
+          console.log(res);
         });
 
       this.props.navigation.navigate('ประกาศทั้งหมด');
@@ -104,7 +118,91 @@ export default class TeacherSubjectEdit extends Component {
   };
   render() {
     if (this.state.isLoading === false) {
-      return <View>{this.renderSubject()}</View>;
+      return (
+        <>
+          <View style={styles.main}>
+            <Text style={styles.font}>ชื่อประกาศ</Text>
+            <Item style={styles.Input}>
+              <TextInput
+                onChangeText={e => {
+                  this.setState({notificationName: e});
+                }}
+                value={this.state.notificationName}
+              />
+            </Item>
+            <Text style={styles.font}>เนื้อหาประกาศ</Text>
+          </View>
+
+          {this.renderWysiwyg()}
+
+          <View style={styles.main}>
+            <Item style={styles.button}>
+              <Button
+                style={{backgroundColor: '#00701a', borderRadius: 20}}
+                onPress={() => {
+                  this.Put();
+                }}>
+                <Text style={styles.font}>บันทึก</Text>
+              </Button>
+              <Button
+                style={{
+                  marginLeft: 20,
+                  backgroundColor: '#ab000d',
+                  borderRadius: 20,
+                }}
+                onPress={this.toggleModal}>
+                <Text style={styles.font}>ลบ</Text>
+              </Button>
+            </Item>
+          </View>
+          <View style={styles.center}>
+            <Modal
+              isVisible={this.state.isModalVisible}
+              onBackdropPress={() => {
+                this.setState({isModalVisible: !this.state.isModalVisible});
+              }}
+              style={styles.center}>
+              <View style={styles.Modal}>
+                <Text
+                  style={{
+                    marginTop: 100,
+                    fontSize: 20,
+                    fontFamily: 'Kanit-Thin',
+                  }}>
+                  ต้องการลบประกาศนี้จริงหรือไม่?
+                </Text>
+                <View style={styles.buttonModal}>
+                  <Button
+                    danger
+                    style={{
+                      width: 100,
+                      height: 50,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                    title="Show modal"
+                    onPress={this.Delete}>
+                    <Text style={styles.font}>ยืนยัน</Text>
+                  </Button>
+                  <Button
+                    style={{
+                      marginLeft: 20,
+                      width: 100,
+                      height: 50,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: '#9e9e9e',
+                    }}
+                    title="Show modal"
+                    onPress={this.toggleModal}>
+                    <Text style={styles.font}>ยกเลิก</Text>
+                  </Button>
+                </View>
+              </View>
+            </Modal>
+          </View>
+        </>
+      );
     } else {
       return (
         <View style={styles.container}>
@@ -114,102 +212,62 @@ export default class TeacherSubjectEdit extends Component {
     }
   }
 
-  renderSubject() {
+  styleMap = {
+    STRIKETHROUGH: {
+      textDecoration: 'line-through',
+    },
+  };
+
+  setActiveStyles = e => {
+    this.setState({activeStyles: e});
+  };
+
+  setActiveBlockType = e => {
+    this.setState({blockType: e});
+  };
+
+  renderWysiwyg = () => {
+    const defaultValue = '';
+
+    const editorLoaded = () => {
+      this._draftRef.current && this._draftRef.current.focus();
+    };
+
+    const toggleStyle = style => {
+      this._draftRef.current && this._draftRef.current.setStyle(style);
+    };
+
+    const toggleBlockType = blockType => {
+      this._draftRef.current && this._draftRef.current.setBlockType(blockType);
+    };
     return (
       <>
-        <View style={styles.main}>
-          <Text style={styles.font}>ชื่อประกาศ</Text>
-          <Item style={styles.Input}>
-            <TextInput
-              onChangeText={e => {
-                this.setState({notificationName: e});
-              }}
-              value={this.state.notificationName}
-            />
-          </Item>
-          <Text style={styles.font}>เนื้อหาประกาศ</Text>
-          <Item style={styles.Input2}>
-            <TextInput
-              multiline
-              onChangeText={e => {
-                this.setState({content: e});
-              }}
-              value={this.state.content}
-            />
-          </Item>
-          <Item style={styles.button}>
-            <Button
-              style={{backgroundColor: '#00701a', borderRadius: 20}}
-              onPress={() => {
-                this.Put();
-              }}>
-              <Text style={styles.font}>บันทึก</Text>
-            </Button>
-            <Button
-              style={{
-                marginLeft: 20,
-                backgroundColor: '#ab000d',
-                borderRadius: 20,
-              }}
-              onPress={this.toggleModal}>
-              <Text style={styles.font}>ลบ</Text>
-            </Button>
-          </Item>
-        </View>
-        <View style={styles.center}>
-          <Modal
-            isVisible={this.state.isModalVisible}
-            onBackdropPress={() => {
-              this.setState({isModalVisible: !this.state.isModalVisible});
-            }}
-            style={styles.center}>
-            <View style={styles.Modal}>
-              <Text
-                style={{
-                  marginTop: 100,
-                  fontSize: 20,
-                  fontFamily: 'Kanit-Thin',
-                }}>
-                ต้องการลบประกาศนี้จริงหรือไม่?
-              </Text>
-              <View style={styles.buttonModal}>
-                <Button
-                  danger
-                  style={{
-                    width: 100,
-                    height: 50,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                  title="Show modal"
-                  onPress={this.Delete}>
-                  <Text style={styles.font}>ยืนยัน</Text>
-                </Button>
-                <Button
-                  style={{
-                    marginLeft: 20,
-                    width: 100,
-                    height: 50,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: '#9e9e9e',
-                  }}
-                  title="Show modal"
-                  onPress={this.toggleModal}>
-                  <Text style={styles.font}>ยกเลิก</Text>
-                </Button>
-              </View>
-            </View>
-          </Modal>
-        </View>
+        <SafeAreaView style={styles.containerStyle}>
+          <RNDraftView
+            defaultValue={this.state.content}
+            onEditorReady={editorLoaded}
+            style={{flex: 1}}
+            placeholder={'Add text here...'}
+            ref={this._draftRef}
+            onStyleChanged={this.setActiveStyles}
+            onBlockTypeChanged={this.setActiveBlockType}
+            styleMap={this.styleMap}
+          />
+          <EditorToolBar
+            activeStyles={this.state.activeStyles}
+            blockType={this.state.blockType}
+            toggleStyle={toggleStyle}
+            toggleBlockType={toggleBlockType}
+          />
+          {Platform.OS === 'ios' ? <KeyboardSpacer /> : null}
+        </SafeAreaView>
       </>
     );
-  }
+  };
 }
 
 const styles = StyleSheet.create({
   main: {
-    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#e0e0e0',
@@ -265,4 +323,74 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flexDirection: 'row',
   },
+  containerStyle: {
+    flex: 1,
+    // marginTop: 36,
+  },
+  toolbarContainer: {
+    height: 56,
+    flexDirection: 'row',
+    backgroundColor: 'silver',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  controlButtonContainer: {
+    padding: 8,
+    borderRadius: 2,
+  },
 });
+
+export const ControlButton = ({text, action, isActive}) => {
+  return (
+    <TouchableOpacity
+      style={[
+        styles.controlButtonContainer,
+        isActive ? {backgroundColor: 'gold'} : {},
+      ]}
+      onPress={action}>
+      <Text>{text}</Text>
+    </TouchableOpacity>
+  );
+};
+
+export const EditorToolBar = ({
+  activeStyles,
+  blockType,
+  toggleStyle,
+  toggleBlockType,
+}) => {
+  return (
+    <View style={styles.toolbarContainer}>
+      <ControlButton
+        text={'B'}
+        isActive={activeStyles.includes('BOLD')}
+        action={() => toggleStyle('BOLD')}
+      />
+      <ControlButton
+        text={'I'}
+        isActive={activeStyles.includes('ITALIC')}
+        action={() => toggleStyle('ITALIC')}
+      />
+      <ControlButton
+        text={'H'}
+        isActive={blockType === 'header-one'}
+        action={() => toggleBlockType('header-one')}
+      />
+      <ControlButton
+        text={'ul'}
+        isActive={blockType === 'unordered-list-item'}
+        action={() => toggleBlockType('unordered-list-item')}
+      />
+      <ControlButton
+        text={'ol'}
+        isActive={blockType === 'ordered-list-item'}
+        action={() => toggleBlockType('ordered-list-item')}
+      />
+      <ControlButton
+        text={'--'}
+        isActive={activeStyles.includes('STRIKETHROUGH')}
+        action={() => toggleStyle('STRIKETHROUGH')}
+      />
+    </View>
+  );
+};

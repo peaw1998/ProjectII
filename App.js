@@ -471,13 +471,13 @@ const AppTeacher = createStackNavigator(
     แก้ไขประกาศ: {
       screen: props => {
         return (
-          <ThemeContext.Provider value={getTheme(uiTheme)}>
-            <Container>
-              <ScrollView>
-                <TeacherNotiEdit {...props} />
-              </ScrollView>
-            </Container>
-          </ThemeContext.Provider>
+          // <ThemeContext.Provider value={getTheme(uiTheme)}>
+          //   <Container>
+          //     <ScrollView>
+          <TeacherNotiEdit {...props} />
+          //     {/* </ScrollView>
+          //   </Container>
+          // </ThemeContext.Provider> */}
         );
       },
     },

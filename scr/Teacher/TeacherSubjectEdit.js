@@ -56,7 +56,7 @@ export default class TeacherSubjectEdit extends Component {
         });
       })
       .catch(error => {
-        //console.log(error);
+        console.log(error);
       })
       .finally(async () => {
         await this.setState({
