@@ -20,6 +20,7 @@ import {NavigationEvents} from 'react-navigation';
 import AnimationButton from '../../Animation';
 import token from '../token';
 import moment from 'moment';
+import {WebView} from 'react-native-webview';
 
 export default class LearnerNotiShow extends Component {
   constructor(props) {
@@ -52,10 +53,10 @@ export default class LearnerNotiShow extends Component {
           content: res.data.content,
           updatedAt: res.data.updatedAt,
         });
-        //console.log(res.data);
+        console.log(res.data);
       })
       .catch(error => {
-        //console.log(error);
+        console.log(error);
       })
       .finally(async () => {
         await this.setState({
@@ -87,26 +88,35 @@ export default class LearnerNotiShow extends Component {
 
   renderSubject() {
     return (
-      <View>
-        <Card style={{flex: 0}}>
-          <CardItem>
-            <Left>
-              <Thumbnail source={require('../../images/5.png')} />
-              <Body>
-                <Text style={styles.font2}>{this.state.notificationName}</Text>
-                <Text note>
-                  update {moment(this.state.updatedAt).format('DD/MM/YYYY')}
-                </Text>
-              </Body>
-            </Left>
-          </CardItem>
-          <CardItem>
-            <Body>
-              <Text style={styles.font3}>{this.state.content}</Text>
-            </Body>
-          </CardItem>
-        </Card>
-      </View>
+      <WebView
+        originWhitelist={['*']}
+        source={{
+          html: `<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body>
+        <h1 style="text-align:center;">${this.state.notificationName}</h1>
+        <hr/>
+        ${this.state.content}</body></html>`,
+        }}
+      />
+      // <View>
+      //   <Card style={{flex: 0}}>
+      //     <CardItem>
+      //       <Left>
+      //         <Thumbnail source={require('../../images/5.png')} />
+      //         <Body>
+      //           <Text style={styles.font2}>{this.state.notificationName}</Text>
+      //           <Text note>
+      //             update {moment(this.state.updatedAt).format('DD/MM/YYYY')}
+      //           </Text>
+      //         </Body>
+      //       </Left>
+      //     </CardItem>
+      //     <CardItem>
+      //       <Body>
+      //         <Text style={styles.font3}>{this.state.content}</Text>
+      //       </Body>
+      //     </CardItem>
+      //   </Card>
+      // </View>
     );
   }
 }
