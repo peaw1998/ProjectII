@@ -93,15 +93,7 @@ export default class LearnerNoti extends Component {
                 </Body>
               </Left>
             </CardItem>
-            <CardItem>
-              <Body>
-                <Text style={styles.font3}>
-                  {item.content.length <= 100
-                    ? item.content
-                    : item.content.slice(0, 120) + '...'}
-                </Text>
-              </Body>
-            </CardItem>
+
             <CardItem>
               <Left />
               <Right>
