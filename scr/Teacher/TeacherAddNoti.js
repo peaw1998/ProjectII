@@ -35,7 +35,9 @@ export default class TeacherAddNoti extends Component {
           'https://fast-ridge-57035.herokuapp.com/api/notification',
           {
             notificationName: this.state.notificationName,
-            content: this.state.content,
+            content: this._draftRef.current
+              ? this._draftRef.current.getEditorState()
+              : this.state.content,
           },
           {
             headers: {
@@ -69,7 +71,7 @@ export default class TeacherAddNoti extends Component {
           <Text style={styles.font}>เนื้อหาประกาศ</Text>
         </View>
         {this.renderWysiwyg()}
-       
+
         <View style={styles.main}>
           <Item style={styles.button}>
             <Button
