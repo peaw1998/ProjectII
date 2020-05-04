@@ -44,9 +44,7 @@ export default class RegisTeacher extends Component {
     this.setState({isModalVisible2: !this.state.isModalVisible2});
   };
   ValidateEmail = mail => {
-    if (
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail.emailAddr.value)
-    ) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
       return false;
     }
     return true;
