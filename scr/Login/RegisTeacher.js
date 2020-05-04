@@ -45,9 +45,7 @@ export default class RegisTeacher extends Component {
   };
   ValidateEmail = mail => {
     if (
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-        myForm.emailAddr.value,
-      )
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail.emailAddr.value)
     ) {
       return false;
     }
@@ -137,7 +135,7 @@ export default class RegisTeacher extends Component {
                 } else {
                   axios
                     .post(
-                      'https://fast-ridge-57035.herokuapp.com/auth/learner/signup',
+                      'https://fast-ridge-57035.herokuapp.com/auth/teacher/signup',
                       {
                         username: this.state.username,
                         password: this.state.password,
