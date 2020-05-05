@@ -28,6 +28,7 @@ import LearnerHome from './scr/Learner/LearnerHome';
 import LearnerSubject from './scr/Learner/LearnerSubject';
 import LearnerChapter from './scr/Learner/LearnerChapter';
 import LearnerExercise from './scr/Learner/LearnerExercise';
+import LearnerScore from './scr/Learner/Score';
 
 import LoginScreen from './scr/Login/LoginScreen';
 import TeacherNoti from './scr/Teacher/TeacherNoti';
@@ -43,6 +44,7 @@ import LearnerProfile from './scr/Learner/LearnerProfile';
 import LearnerResetPass from './scr/Learner/LearnerResetPass';
 import TeacherProfile from './scr/Teacher/TeacherProfile';
 import TeacherResetPass from './scr/Teacher/TeacherResetPass';
+import TeacherScore from './scr/Teacher/Score';
 
 const uiTheme = {
   palette: {
@@ -250,6 +252,19 @@ const AppLearner = createStackNavigator(
                 <Test {...props} />
               </ScrollView>
             </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
+    },
+    LearnerScore: {
+      screen: props => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <Container>
+              <ScrollView>
+                <LearnerScore {...props} />
+              </ScrollView>
+            </Container>
           </ThemeContext.Provider>
         );
       },
@@ -516,6 +531,19 @@ const AppTeacher = createStackNavigator(
                 <TeacherResetPass {...props} />
               </ScrollView>
             </LoginS>
+          </ThemeContext.Provider>
+        );
+      },
+    },
+    คะแนนทั้งหมด: {
+      screen: props => {
+        return (
+          <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <Container>
+              <ScrollView>
+                <TeacherScore {...props} />
+              </ScrollView>
+            </Container>
           </ThemeContext.Provider>
         );
       },

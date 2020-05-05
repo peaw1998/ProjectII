@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Button, Text, Spinner, Row} from 'native-base';
 import {StyleSheet, Image} from 'react-native';
 import axios from 'axios';
-import {NavigationEvents} from 'react-navigation';
+import {NavigationEvents, StackActions} from 'react-navigation';
 import QuestionComponent from './QuestionComponent';
 import token from '../token';
 import _ from 'lodash';
@@ -25,16 +25,25 @@ export default class LearnerExercise extends Component {
       index: 0,
       temp: {},
       point: 0,
+      exerciseId: '',
     };
   }
 
   test = async () => {
     await this.Get();
     //console.log(this.state.question);
-    let arr = this.state.question.filter(item => {
-      if (item.preTest === this.state.test) return true;
-      else return false;
-    });
+    let arr = [];
+    if (this.state.test) {
+      arr = this.state.question.filter(item => {
+        if (item.preTest) return true;
+        else return false;
+      });
+    } else {
+      arr = this.state.question.filter(item => {
+        if (item.postTest) return true;
+        else return false;
+      });
+    }
     this.setState({
       AllQuestion: arr,
       AllQuestionDraft:
@@ -47,24 +56,7 @@ export default class LearnerExercise extends Component {
                 : '',
           };
         }) || [],
-    });
-
-    let arr2 = this.state.question.filter(item => {
-      if (item.postTest !== this.state.test) return true;
-      else return false;
-    });
-    this.setState({
-      AllQuestion: arr2,
-      AllQuestionDraft:
-        arr2[0]?.Question?.map(item => {
-          return {
-            ...item,
-            correctAnswer:
-              item.type === 'draganddrop'
-                ? _.shuffle(Object.values(item.correctAnswer))
-                : '',
-          };
-        }) || [],
+      exerciseId: arr[0]?._id,
     });
   };
 
@@ -176,8 +168,25 @@ export default class LearnerExercise extends Component {
               source={require('../../images/4.png')}
               style={{width: 200, height: 200}}
             />
-            <Text style={styles.font3}>คุณได้คะแนน </Text>
-            <Text style={styles.font3}>{this.score()}</Text>
+            <Text style={styles.font3}>จบแบบทดสอบ </Text>
+            {/* <Text style={styles.font3}>{this.score()}</Text> */}
+            <Button
+              rounded
+              success
+              style={{marginTop: 5}}
+              onPress={() => {
+                this.props.navigation.dispatch(
+                  StackActions.replace({
+                    routeName: 'LearnerScore',
+                    params: {
+                      score: this.score(),
+                      _id: this.state.exerciseId,
+                    },
+                  }),
+                );
+              }}>
+              <Text style={styles.font2}>ส่งคำตอบ</Text>
+            </Button>
           </View>
         )}
         <View style={styles.next}>
